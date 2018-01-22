@@ -16,6 +16,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Collections;
 
+/**
+ * The type Jwt login filter.
+ * Class added for JWTs, copied from https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+ */
 public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 
     public JWTLoginFilter(String url, AuthenticationManager authManager) {

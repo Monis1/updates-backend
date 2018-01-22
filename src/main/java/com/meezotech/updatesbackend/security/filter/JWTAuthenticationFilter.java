@@ -12,6 +12,10 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * The type Jwt authentication filter.
+ * Class added for JWTs, copied from https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/
+ */
 public class JWTAuthenticationFilter extends GenericFilterBean {
 
     @Override
