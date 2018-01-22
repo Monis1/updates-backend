@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(UserController.BASE_URL)
 public class UserController {
 
-    static final String BASE_URL = "/api/v1/users";
+    static final String BASE_URL = "/api/v1/user";
 
-    @GetMapping
+    @GetMapping("/login")
     @ResponseStatus(HttpStatus.OK)
     public UserDTO getUsers(){
         return new UserDTO("Monis", "Ahmed", "monisahmed@gmail.com");

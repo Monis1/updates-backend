@@ -1,7 +1,7 @@
 package com.meezotech.updatesbackend.security.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.meezotech.updatesbackend.domain.User;
+import com.meezotech.updatesbackend.security.ApiUserCredentials;
 import com.meezotech.updatesbackend.security.TokenAuthenticationService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,11 +31,11 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(
             HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException {
-        User creds = new ObjectMapper()
-                .readValue(req.getInputStream(), User.class);
+        ApiUserCredentials creds = new ObjectMapper()
+                .readValue(req.getInputStream(), ApiUserCredentials.class);
         return getAuthenticationManager().authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        creds.getEmail(),
+                        creds.getUserName(),
                         creds.getPassword(),
                         Collections.emptyList()
                 )
