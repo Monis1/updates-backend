@@ -2,15 +2,11 @@ package com.meezotech.updatesbackend.api.v1.model;
 
 public class UserDTO {
 
+    private Long id;
     private String firstName;
     private String LastName;
     private String email;
-
-    public UserDTO(String firstName, String lastName, String email) {
-        this.firstName = firstName;
-        LastName = lastName;
-        this.email = email;
-    }
+    private String gender;
 
     public String getEmail() {
         return email;
@@ -36,4 +32,19 @@ public class UserDTO {
         this.firstName = firstName;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
