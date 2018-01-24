@@ -1,0 +1,52 @@
+package com.meezotech.updatesbackend.controllers.v1;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.meezotech.updatesbackend.api.v1.model.UserDTO;
+import com.meezotech.updatesbackend.domain.Gender;
+import com.meezotech.updatesbackend.services.UserService;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+public class UserControllerTest {
+
+    @Mock
+    private UserService userService;
+
+    private UserController userController;
+
+    @Before
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+        userController = new UserController(userService);
+    }
+
+    @Test
+    public void createUserTest() throws Exception {
+        // request user DTO
+        UserDTO userDTO = new UserDTO();
+        userDTO.setId(1L);
+        userDTO.setFirstName("Arsalan");
+        userDTO.setGender(Gender.MALE.name());
+
+        // mocking user service to return entered DTO
+        when(userService.createUser(any(UserDTO.class))).thenReturn(userDTO);
+
+        // mocking user controller
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+        mockMvc.perform(post("/api/v1/user")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(new ObjectMapper().writeValueAsBytes(userDTO))
+                .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+    }
+}

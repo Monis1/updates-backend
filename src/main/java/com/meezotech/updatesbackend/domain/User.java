@@ -1,9 +1,6 @@
 package com.meezotech.updatesbackend.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class User {
@@ -16,6 +13,9 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    private Gender gender;
 
     public String getPassword() {
         return password;
@@ -55,5 +55,13 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
     }
 }
