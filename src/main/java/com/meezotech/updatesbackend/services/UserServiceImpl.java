@@ -6,6 +6,8 @@ import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -20,8 +22,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO createUser(UserDTO userDTO) {
         User user = userMapper.userDtoToUser(userDTO);
-        if (userRepository.findByEmail(user.getEmail()).isPresent()) { // if user already exists, returns the user
-            return userDTO;
+        Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
+        if (userOptional.isPresent()) { // if user already exists, returns the user
+            return userMapper.userToUserDto(userOptional.get());
         }
         return userMapper.userToUserDto(userRepository.save(user)); // save and return
     }
