@@ -8,6 +8,9 @@ public class UserDTO {
     private String email;
     private String gender;
     private String profilePictureUrl;
+    private Long followers;
+    private Long following;
+    private Long numberOfPosts;
 
     public String getEmail() {
         return email;
@@ -55,5 +58,29 @@ public class UserDTO {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public Long getFollowers() {
+        return followers;
+    }
+
+    public void setFollowers(Long followers) {
+        this.followers = followers;
+    }
+
+    public Long getFollowing() {
+        return following;
+    }
+
+    public void setFollowing(Long following) {
+        this.following = following;
+    }
+
+    public Long getNumberOfPosts() {
+        return numberOfPosts;
+    }
+
+    public void setNumberOfPosts(Long numberOfPosts) {
+        this.numberOfPosts = numberOfPosts;
     }
 }
