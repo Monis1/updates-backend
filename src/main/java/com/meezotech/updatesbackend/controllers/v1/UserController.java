@@ -23,4 +23,10 @@ public class UserController {
         return userService.createUser(userDTO);
     }
 
+    @GetMapping({"/{id}"})
+    @ResponseStatus(HttpStatus.OK)
+    public UserDTO getUserById(@PathVariable Long id){
+        return userService.getUserById(id);
+    }
+
 }

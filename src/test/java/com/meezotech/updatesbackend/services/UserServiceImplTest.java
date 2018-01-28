@@ -20,6 +20,8 @@ import static org.mockito.Mockito.when;
 
 public class UserServiceImplTest {
 
+    private static final Long ID = 1L;
+
     private UserService userService;
     private UserMapper userMapper;
 
@@ -51,6 +53,23 @@ public class UserServiceImplTest {
 
         // check if the returned object is not null
         UserDTO userDtoReturned = userService.createUser(userDTO);
+        assertNotNull("Null User Returned", userDtoReturned);
+    }
+
+    @Test
+    public void getUserById() {
+        User user = new User();
+        user.setId(ID);
+        user.setFirstName("Monis");
+        user.setLastName("khan");
+        user.setGender(Gender.MALE);
+        user.setEmail("monisahmed8@gmail.com");
+
+        // mocking the repository to get user object
+        when(userRepository.findOne(ID)).thenReturn(user);
+
+        // check if the returned object is not null
+        UserDTO userDtoReturned = userService.getUserById(ID);
         assertNotNull("Null User Returned", userDtoReturned);
     }
 }
