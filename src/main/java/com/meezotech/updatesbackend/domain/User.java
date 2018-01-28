@@ -13,6 +13,7 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+    private String profilePictureUrl;
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
@@ -63,5 +64,13 @@ public class User {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public String getProfilePictureUrl() {
+        return profilePictureUrl;
+    }
+
+    public void setProfilePictureUrl(String profilePictureUrl) {
+        this.profilePictureUrl = profilePictureUrl;
     }
 }

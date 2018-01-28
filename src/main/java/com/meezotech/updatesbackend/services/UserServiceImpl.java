@@ -25,4 +25,9 @@ public class UserServiceImpl implements UserService {
         }
         return userMapper.userToUserDto(userRepository.save(user)); // save and return
     }
+
+    @Override
+    public UserDTO getUserById(Long id) {
+        return userMapper.userToUserDto(userRepository.findOne(id));
+    }
 }
