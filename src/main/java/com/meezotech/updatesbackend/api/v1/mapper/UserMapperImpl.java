@@ -18,6 +18,7 @@ public class UserMapperImpl implements UserMapper {
         user.setLastName(userDTO.getLastName());
         user.setEmail(userDTO.getEmail());
         user.setGender(Gender.valueOf(userDTO.getGender()));
+        user.setProfilePictureUrl(userDTO.getProfilePictureUrl());
 
         return user;
     }
@@ -33,6 +34,7 @@ public class UserMapperImpl implements UserMapper {
         userDTO.setLastName(user.getLastName());
         userDTO.setEmail(user.getEmail());
         userDTO.setGender(user.getGender().name());
+        userDTO.setProfilePictureUrl(user.getProfilePictureUrl());
 
         return userDTO;
     }
