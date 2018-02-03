@@ -1,6 +1,8 @@
 package com.meezotech.updatesbackend.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -17,6 +19,9 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
+
+    @ManyToMany(mappedBy="users")
+    private Set<Post> posts = new HashSet<>();
 
     public String getPassword() {
         return password;
@@ -72,5 +77,13 @@ public class User {
 
     public void setProfilePictureUrl(String profilePictureUrl) {
         this.profilePictureUrl = profilePictureUrl;
+    }
+
+    public Set getPosts() {
+        return posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
     }
 }
