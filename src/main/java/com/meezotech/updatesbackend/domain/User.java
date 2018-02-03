@@ -79,7 +79,7 @@ public class User {
         this.profilePictureUrl = profilePictureUrl;
     }
 
-    public Set getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 

@@ -35,7 +35,7 @@ public class Rule {
         return name;
     }
 
-    public Set getGroups() {
+    public Set<Group> getGroups() {
         return groups;
     }
 

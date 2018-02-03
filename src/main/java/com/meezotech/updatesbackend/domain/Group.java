@@ -20,7 +20,7 @@ public class Group {
     @ManyToMany(mappedBy="groups")
     private Set<Post> posts = new HashSet<>();
 
-    public Set getRules() {
+    public Set<Rule> getRules() {
         return rules;
     }
 
@@ -28,7 +28,7 @@ public class Group {
         this.rules = rules;
     }
 
-    public Set getPosts() {
+    public Set<Post> getPosts() {
         return posts;
     }
 

@@ -48,11 +48,11 @@ public class Post {
         this.media = value;
     }
 
-    public Set getMedia() {
+    public Set<Media> getMedia() {
         return media;
     }
 
-    public Set getUsers() {
+    public Set<User> getUsers() {
         return users;
     }
 
@@ -60,7 +60,7 @@ public class Post {
         this.users = users;
     }
 
-    public Set getGroups() {
+    public Set<Group> getGroups() {
         return groups;
     }
 
