@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(GroupController.BASE_URL)
 public class GroupController {
 
-    static final String BASE_URL = "/api/v1/group";
+    public static final String BASE_URL = "/api/v1/group";
 
     private GroupService groupService;
 

@@ -1,5 +1,6 @@
 package com.meezotech.updatesbackend.domain;
 
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.*;
@@ -10,25 +11,21 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Date date;
     
     private String text;
 
-    @ManyToMany
-    @JoinTable(name = "User_Post",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users = new HashSet<>();
+    @ManyToOne
+    private User user;
 
-    @ManyToMany
-    @JoinTable(name = "Group_Post",
-            joinColumns = @JoinColumn(name = "post_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id"))
-    private Set<Group> groups = new HashSet<>();
+    @ManyToOne
+    private Group group;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private Set<Media> media = new HashSet<>();
 
-    private void setId(Long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
@@ -52,20 +49,28 @@ public class Post {
         return media;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public User getUser() {
+        return user;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public Set<Group> getGroups() {
-        return groups;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

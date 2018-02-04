@@ -20,7 +20,7 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Gender gender;
 
-    @ManyToMany(mappedBy="users")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 
     public String getPassword() {

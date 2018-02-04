@@ -9,7 +9,8 @@ public class Media {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean type;
+    @Enumerated(value = EnumType.STRING)
+    private MediaType mediaType;
 
     private String url;
 
@@ -24,12 +25,12 @@ public class Media {
         return id;
     }
 
-    public void setType(boolean value) {
-        this.type = value;
+    public MediaType getMediaType() {
+        return mediaType;
     }
 
-    public boolean getType() {
-        return type;
+    public void setMediaType(MediaType mediaType) {
+        this.mediaType = mediaType;
     }
 
     public void setUrl(String value) {

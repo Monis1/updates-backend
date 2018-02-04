@@ -48,7 +48,7 @@ public class UserControllerTest {
 
         // mocking user controller
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-        mockMvc.perform(post("/api/v1/user")
+        mockMvc.perform(post(UserController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsBytes(userDTO))
                 .accept(MediaType.APPLICATION_JSON))
