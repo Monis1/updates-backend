@@ -36,7 +36,7 @@ public class Group {
         this.posts = posts;
     }
 
-    private void setId(Long value) {
+    public void setId(Long value) {
         this.id = value;
     }
 
