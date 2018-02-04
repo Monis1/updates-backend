@@ -3,7 +3,6 @@ package com.meezotech.updatesbackend.controllers.v1;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
 import com.meezotech.updatesbackend.domain.Gender;
-import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,7 +56,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUserById() throws Exception {
+    public void getUserByIdTest() throws Exception {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(ID);
         userDTO.setFirstName("Monis");

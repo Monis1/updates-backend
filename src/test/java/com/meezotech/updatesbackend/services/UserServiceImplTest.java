@@ -57,7 +57,7 @@ public class UserServiceImplTest {
     }
 
     @Test
-    public void getUserById() {
+    public void getUserByIdTest() {
         User user = new User();
         user.setId(ID);
         user.setFirstName("Monis");
