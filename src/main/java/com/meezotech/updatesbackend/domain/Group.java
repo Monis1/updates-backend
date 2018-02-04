@@ -16,8 +16,7 @@ public class Group {
     @ManyToMany(mappedBy="groups")
     private Set<Rule> rules = new HashSet<>();
 
-
-    @ManyToMany(mappedBy="groups")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Post> posts = new HashSet<>();
 
     public Set<Rule> getRules() {
