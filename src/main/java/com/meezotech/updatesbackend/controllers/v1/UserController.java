@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(UserController.BASE_URL)
 public class UserController {
 
-    static final String BASE_URL = "/api/v1/user";
+    public static final String BASE_URL = "/api/v1/user";
 
     private UserService userService;
 

@@ -3,7 +3,6 @@ package com.meezotech.updatesbackend.controllers.v1;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
 import com.meezotech.updatesbackend.domain.Gender;
-import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.services.UserService;
 import org.junit.Before;
 import org.junit.Test;
@@ -49,7 +48,7 @@ public class UserControllerTest {
 
         // mocking user controller
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-        mockMvc.perform(post("/api/v1/user")
+        mockMvc.perform(post(UserController.BASE_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(new ObjectMapper().writeValueAsBytes(userDTO))
                 .accept(MediaType.APPLICATION_JSON))
@@ -57,7 +56,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void getUserById() throws Exception {
+    public void getUserByIdTest() throws Exception {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(ID);
         userDTO.setFirstName("Monis");
