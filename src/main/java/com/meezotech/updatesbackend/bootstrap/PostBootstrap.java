@@ -45,12 +45,12 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             Media media1 = new Media();
             media1.setMediaType(MediaType.VIDEO);
-            media1.setUrl("www.hy.com/video" + i);
+            media1.setUrl("http://www.html5videoplayer.net/videos/toystory.mp4");
             media1.setPost(post);
 
             Media media2 = new Media();
             media2.setMediaType(MediaType.IMAGE);
-            media2.setUrl("www.hy.com/image" + i);
+            media2.setUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/27331650_1003078486515614_2119376052328880588_n.jpg?oh=92f82259b50a871aa8f7ef60187e22f1&oe=5AE153AB");
             media2.setPost(post);
 
             post.getMedia().add(media1);
@@ -60,6 +60,9 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             User user = new User();
             user.setFirstName("Person " + i);
+            user.setLastName("last " + i);
+            user.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/22141210_1527317537304126_6355389030864021810_n.jpg?oh=56c4f6a71f3a08748ca30eda46605c47&oe=5ADE1571");
+            user.setEmail("moid@meezotech.com");
             user.setGender(Gender.MALE);
 
             userRepository.save(user);
