@@ -20,8 +20,19 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getAllPostsByPage(Pageable pageable) {
+    public Page<PostDTO> getAllPostsPaginated(Pageable pageable) {
         return postRepository.findAll(pageable).map(postMapper::postToPostDto);
     }
+
+    @Override
+    public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId) {
+        return postRepository.findByGroupId(pageable, groupId).map(postMapper::postToPostDto);
+    }
+
+    @Override
+    public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long userId) {
+        return postRepository.findByUserId(pageable, userId).map(postMapper::postToPostDto);
+    }
+
 
 }

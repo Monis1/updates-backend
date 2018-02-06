@@ -6,10 +6,7 @@ import com.meezotech.updatesbackend.services.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(PostController.BASE_URL)
@@ -25,8 +22,20 @@ public class PostController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<PostDTO> getAllPostsByPage(Pageable pageable){
-        return postService.getAllPostsByPage(pageable);
+    public Page<PostDTO> getAllPostsPaginated(Pageable pageable){
+        return postService.getAllPostsPaginated(pageable);
+    }
+
+    @GetMapping("/group")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable,@RequestParam("groupId") Long groupId){
+        return postService.getAllPostsByGroupIdPaginated(pageable, groupId);
+    }
+
+    @GetMapping("/user")
+    @ResponseStatus(HttpStatus.OK)
+    public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, @RequestParam("userId") Long userId){
+        return postService.getAllPostsByUserIdPaginated(pageable, userId);
     }
 
 }
