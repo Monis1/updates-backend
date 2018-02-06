@@ -7,6 +7,10 @@ import org.springframework.data.domain.Pageable;
 
 public interface PostService {
 
-    Page<PostDTO> getAllPostsByPage(Pageable pageable);
+    Page<PostDTO> getAllPostsPaginated(Pageable pageable);
+
+    Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId);
+
+    Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long UserId);
 
 }

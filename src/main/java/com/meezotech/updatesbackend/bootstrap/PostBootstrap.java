@@ -27,7 +27,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        postRepository.save(getBulkPosts(100));
+        postRepository.save(getBulkPosts(2));
     }
 
     private List<Post> getBulkPosts(int size) {
@@ -38,6 +38,26 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         group.setName("Updates");
         groupRepository.save(group);
 
+        Group group1 = new Group();
+        group1.setName("Updates1");
+        groupRepository.save(group1);
+
+        User user = new User();
+        user.setFirstName("Moid");
+        user.setLastName("khan");
+        user.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/22141210_1527317537304126_6355389030864021810_n.jpg?oh=56c4f6a71f3a08748ca30eda46605c47&oe=5ADE1571");
+        user.setEmail("moid@meezotech.com");
+        user.setGender(Gender.MALE);
+        userRepository.save(user);
+
+        User user1 = new User();
+        user1.setFirstName("Monis");
+        user1.setLastName("khan");
+        user1.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/23722309_1680089072035219_5259122116517785807_n.jpg?oh=51d7162810a0c5093bfb04128a2ebb5e&oe=5B262F0F");
+        user1.setEmail("monis@meezotech.com");
+        user1.setGender(Gender.MALE);
+        userRepository.save(user1);
+
         for (int i = 0; i < size; i++) {
             Post post = new Post();
             post.setText("Update " + i);
@@ -45,26 +65,25 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             Media media1 = new Media();
             media1.setMediaType(MediaType.VIDEO);
-            media1.setUrl("www.hy.com/video" + i);
+            media1.setUrl("http://www.html5videoplayer.net/videos/toystory.mp4");
             media1.setPost(post);
 
             Media media2 = new Media();
             media2.setMediaType(MediaType.IMAGE);
-            media2.setUrl("www.hy.com/image" + i);
+            media2.setUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/27331650_1003078486515614_2119376052328880588_n.jpg?oh=92f82259b50a871aa8f7ef60187e22f1&oe=5AE153AB");
             media2.setPost(post);
 
             post.getMedia().add(media1);
             post.getMedia().add(media2);
 
-            post.setGroup(group);
-
-            User user = new User();
-            user.setFirstName("Person " + i);
-            user.setGender(Gender.MALE);
-
-            userRepository.save(user);
-
-            post.setUser(user);
+            if(i%2==0) {
+                post.setGroup(group);
+                post.setUser(user);
+            }
+            else {
+                post.setGroup(group1);
+                post.setUser(user1);
+            }
 
             posts.add(post);
         }

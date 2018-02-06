@@ -11,10 +11,18 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String firstName;
+
+    @Column(nullable = false)
     private String lastName;
+
+    @Column(nullable = false, unique = true)
     private String email;
+
     private String password;
+
+    @Column(nullable = false)
     private String profilePictureUrl;
 
     @Enumerated(value = EnumType.STRING)

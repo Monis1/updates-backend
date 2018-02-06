@@ -10,8 +10,10 @@ public class Media {
     private Long id;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(nullable = false)
     private MediaType mediaType;
 
+    @Column(nullable = false)
     private String url;
 
     @ManyToOne
