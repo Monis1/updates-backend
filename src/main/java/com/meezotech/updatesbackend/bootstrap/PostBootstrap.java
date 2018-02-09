@@ -27,7 +27,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        postRepository.save(getBulkPosts(2));
+        postRepository.save(getBulkPosts(100));
     }
 
     private List<Post> getBulkPosts(int size) {
@@ -46,7 +46,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         user.setFirstName("Moid");
         user.setLastName("khan");
         user.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/22141210_1527317537304126_6355389030864021810_n.jpg?oh=56c4f6a71f3a08748ca30eda46605c47&oe=5ADE1571");
-        user.setEmail("moid@meezotech.com");
+        user.setEmail("abdulmoeedkhan92@gmail.com");
         user.setGender(Gender.MALE);
         userRepository.save(user);
 
@@ -54,7 +54,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         user1.setFirstName("Monis");
         user1.setLastName("khan");
         user1.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/23722309_1680089072035219_5259122116517785807_n.jpg?oh=51d7162810a0c5093bfb04128a2ebb5e&oe=5B262F0F");
-        user1.setEmail("monis@meezotech.com");
+        user1.setEmail("monisahmed8@gmail.com");
         user1.setGender(Gender.MALE);
         userRepository.save(user1);
 
@@ -65,11 +65,14 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             Media media1 = new Media();
             media1.setMediaType(MediaType.VIDEO);
+            media1.setThumbnailUrl("https://imgc.allpostersimages.com/img/print/posters/toy-story-woody-buzz_a-G-13390942-0.jpg");
+            media1.setName("Toy Story");
             media1.setUrl("http://www.html5videoplayer.net/videos/toystory.mp4");
             media1.setPost(post);
 
             Media media2 = new Media();
             media2.setMediaType(MediaType.IMAGE);
+            media2.setName("Just Pakistani Things");
             media2.setUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/27331650_1003078486515614_2119376052328880588_n.jpg?oh=92f82259b50a871aa8f7ef60187e22f1&oe=5AE153AB");
             media2.setPost(post);
 
@@ -104,6 +107,8 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         Media media1 = new Media();
         media1.setMediaType(MediaType.VIDEO);
+        media1.setThumbnailUrl("www.hy.com/stbn.jpg");
+        media1.setName("s");
         media1.setUrl("www.hy.com/s.mp4");
         media1.setPost(post1);
 
@@ -113,6 +118,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         post2.setText("see this non sense");
 
         Media media2 = new Media();
+        media2.setName("x");
         media2.setMediaType(MediaType.IMAGE);
         media2.setUrl("www.hy.com/x.jpg");
         media2.setPost(post2);

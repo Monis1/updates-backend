@@ -19,6 +19,8 @@ public class MediaMapperImpl implements MediaMapper {
         Media media = new Media();
         media.setMediaType(MediaType.valueOf(mediaDTO.getMediaType()));
         media.setUrl(mediaDTO.getUrl());
+        media.setName(mediaDTO.getName());
+        media.setThumbnailUrl(mediaDTO.getThumbnailUrl());
 
         return media;
     }
@@ -31,6 +33,8 @@ public class MediaMapperImpl implements MediaMapper {
         MediaDTO mediaDTO = new MediaDTO();
         mediaDTO.setMediaType(media.getMediaType().name());
         mediaDTO.setUrl(media.getUrl());
+        mediaDTO.setName(media.getName());
+        mediaDTO.setThumbnailUrl(media.getThumbnailUrl());
 
         return mediaDTO;
     }
