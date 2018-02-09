@@ -15,6 +15,7 @@ public class Post {
     @Column(nullable = false)
     private Date date;
 
+    @Lob
     private String text;
 
     @ManyToOne

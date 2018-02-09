@@ -13,4 +13,6 @@ public interface PostService {
 
     Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long UserId);
 
+    PostDTO createPost(PostDTO postDTO);
+
 }
