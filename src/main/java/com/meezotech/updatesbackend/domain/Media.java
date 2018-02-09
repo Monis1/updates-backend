@@ -16,6 +16,11 @@ public class Media {
     @Column(nullable = false)
     private String url;
 
+    private String thumbnailUrl;
+
+    @Column(nullable = false)
+    private String name;
+
     @ManyToOne
     private Post post;
 
@@ -51,5 +56,20 @@ public class Media {
         return post;
     }
 
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
+
+    public void setThumbnailUrl(String thumbnailUrl) {
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
 

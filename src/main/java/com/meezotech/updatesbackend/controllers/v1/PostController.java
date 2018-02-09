@@ -38,4 +38,10 @@ public class PostController {
         return postService.getAllPostsByUserIdPaginated(pageable, userId);
     }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public PostDTO createPost(@RequestBody PostDTO postDTO){
+        return postService.createPost(postDTO);
+    }
+
 }

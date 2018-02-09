@@ -12,6 +12,12 @@ public class UserDTO {
     private Long following;
     private Long numberOfPosts;
 
+    public UserDTO() {
+        followers = 0L;
+        following = 0L;
+        numberOfPosts = 0L;
+    }
+
     public String getEmail() {
         return email;
     }
