@@ -7,6 +7,16 @@ public class MediaDTO {
     private String name;
     private String thumbnailUrl;
 
+    public MediaDTO() {
+    }
+
+    public MediaDTO(String mediaType, String url, String name, String thumbnailUrl) {
+        this.mediaType = mediaType;
+        this.url = url;
+        this.name = name;
+        this.thumbnailUrl = thumbnailUrl;
+    }
+
     public String getName() {
         return name;
     }

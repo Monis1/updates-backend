@@ -20,6 +20,13 @@ public class Group {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Post> posts = new HashSet<>();
 
+    public Group(){}
+
+    public Group(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Set<Rule> getRules() {
         return rules;
     }
