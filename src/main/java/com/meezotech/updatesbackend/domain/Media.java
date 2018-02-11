@@ -24,6 +24,16 @@ public class Media {
     @ManyToOne
     private Post post;
 
+    public Media() {
+    }
+
+    public Media(MediaType mediaType, String url, String thumbnailUrl, String name) {
+        this.mediaType = mediaType;
+        this.url = url;
+        this.thumbnailUrl = thumbnailUrl;
+        this.name = name;
+    }
+
     private void setId(Long value) {
         this.id = value;
     }

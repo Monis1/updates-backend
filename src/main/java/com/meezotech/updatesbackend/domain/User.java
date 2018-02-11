@@ -31,6 +31,16 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 
+    public User() {
+    }
+
+    public User(Long id, String firstName, String lastName, Gender gender) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
+    }
+
     public String getPassword() {
         return password;
     }
