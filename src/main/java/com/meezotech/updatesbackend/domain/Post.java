@@ -27,6 +27,12 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private Set<Media> media = new HashSet<>();
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private Set<Reaction> reactions = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private Set<Comment> comments = new HashSet<>();
+
     public void setId(Long value) {
         this.id = value;
     }
@@ -73,6 +79,22 @@ public class Post {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public Set<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(Set<Reaction> reactions) {
+        this.reactions = reactions;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }
 
