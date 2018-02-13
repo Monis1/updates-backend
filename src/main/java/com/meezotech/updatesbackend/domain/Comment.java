@@ -6,10 +6,10 @@ import javax.persistence.*;
 public class Comment {
 
     @Id
-    private long userId;
+    private Long userId;
 
     @Id
-    private long postId;
+    private Long postId;
 
     @ManyToOne
     private User user;
@@ -19,20 +19,20 @@ public class Comment {
 
     private String commentText;
 
-    private void setUserId(long value) {
-        this.userId = value;
-    }
-
-    public long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    private void setPostId(long value) {
-        this.postId = value;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-    public long getPostId() {
+    public Long getPostId() {
         return postId;
+    }
+
+    public void setPostId(Long postId) {
+        this.postId = postId;
     }
 
     public void setCommentText(String value) {
