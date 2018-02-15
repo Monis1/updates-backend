@@ -1,6 +1,7 @@
 package com.meezotech.updatesbackend.bootstrap;
 
 import com.meezotech.updatesbackend.domain.*;
+import com.meezotech.updatesbackend.repositories.CommentRepository;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.repositories.UserRepository;
@@ -18,19 +19,38 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
     private GroupRepository groupRepository;
     private PostRepository postRepository;
     private UserRepository userRepository;
+    private CommentRepository commentRepository;
+    private static final Long size = 100L;
 
-    public PostBootstrap(GroupRepository groupRepository, PostRepository postRepository, UserRepository userRepository) {
+    public PostBootstrap(GroupRepository groupRepository, PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository) {
         this.groupRepository = groupRepository;
         this.postRepository = postRepository;
         this.userRepository = userRepository;
+        this.commentRepository = commentRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
-        postRepository.save(getBulkPosts(100));
+        postRepository.save(getBulkPosts());
+
+        User user = new User();
+        user.setId(1L);
+
+        for (Long i = 1L; i < size; i++) {
+            Post post = new Post();
+            post.setId(i);
+
+            Comment comment = new Comment();
+            comment.setUser(user);
+            comment.setPost(post);
+            comment.setDate(new Date());
+            comment.setCommentText("Comment " + i);
+
+            commentRepository.save(comment);
+        }
     }
 
-    private List<Post> getBulkPosts(int size) {
+    private List<Post> getBulkPosts() {
 
         List<Post> posts = new ArrayList<>();
 
@@ -79,11 +99,10 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
             post.getMedia().add(media1);
             post.getMedia().add(media2);
 
-            if(i%2==0) {
+            if (i % 2 == 0) {
                 post.setGroup(group);
                 post.setUser(user);
-            }
-            else {
+            } else {
                 post.setGroup(group1);
                 post.setUser(user1);
             }

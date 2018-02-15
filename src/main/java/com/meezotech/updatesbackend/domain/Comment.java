@@ -1,15 +1,15 @@
 package com.meezotech.updatesbackend.domain;
 
+
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 public class Comment {
 
     @Id
-    private Long userId;
-
-    @Id
-    private Long postId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -17,22 +17,18 @@ public class Comment {
     @ManyToOne
     private Post post;
 
+    @Column(nullable = false)
     private String commentText;
 
-    public Long getUserId() {
-        return userId;
+    @Column(nullable = false)
+    private Date date;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setCommentText(String value) {
@@ -57,6 +53,14 @@ public class Comment {
 
     public Post getPost() {
         return post;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
 

@@ -6,10 +6,8 @@ import javax.persistence.*;
 public class Reaction {
 
     @Id
-    private Long userId;
-
-    @Id
-    private Long postId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne
     private User user;
@@ -19,20 +17,12 @@ public class Reaction {
 
     private String reacionType;
 
-    public Long getUserId() {
-        return userId;
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getPostId() {
-        return postId;
-    }
-
-    public void setPostId(Long postId) {
-        this.postId = postId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setReacionType(String value) {
