@@ -62,5 +62,8 @@ public class UserMapperImplTest {
         assertEquals(EMAIL, userDTO.getEmail());
         assertEquals(GENDER.name(), userDTO.getGender());
         assertEquals(ID, userDTO.getId());
+        assertEquals(0L,(long) userDTO.getFollowers()); // by default followers will be zero
+        assertEquals(0L,(long) userDTO.getFollowing()); // by default followings will be zero
+        assertEquals(0L,(long) userDTO.getNumberOfPosts()); // by default posts will be zero
     }
 }

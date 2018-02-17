@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 public class UserMapperImpl implements UserMapper {
     @Override
     public User userDtoToUser(UserDTO userDTO) {
-        if(userDTO == null) {
+        if (userDTO == null) {
             return null;
         }
         User user = new User();
@@ -25,7 +25,7 @@ public class UserMapperImpl implements UserMapper {
 
     @Override
     public UserDTO userToUserDto(User user) {
-        if(user == null) {
+        if (user == null) {
             return null;
         }
         UserDTO userDTO = new UserDTO();
@@ -35,6 +35,9 @@ public class UserMapperImpl implements UserMapper {
         userDTO.setEmail(user.getEmail());
         userDTO.setGender(user.getGender().name());
         userDTO.setProfilePictureUrl(user.getProfilePictureUrl());
+        userDTO.setFollowers((long) user.getFollowedUsers().size());
+        userDTO.setFollowing((long) user.getFollowingUsers().size());
+        userDTO.setNumberOfPosts((long) user.getPosts().size());
 
         return userDTO;
     }
