@@ -9,6 +9,9 @@ public class CommentDTO {
     private String commentText;
     private Date date;
 
+    public CommentDTO() {
+    }
+
     public CommentDTO(Long userId, Long postId, String commentText, Date date) {
         this.userId = userId;
         this.postId = postId;

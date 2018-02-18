@@ -21,7 +21,7 @@ public class CommentController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<CommentDTO> getAllPostsByGroupIdPaginated(Pageable pageable, @RequestParam("postId") Long postId){
+    public Page<CommentDTO> getAllCommentsByPostIdPaginated(Pageable pageable, @RequestParam("postId") Long postId){
         return commentService.getAllCommentsByPostIdPaginated(pageable, postId);
     }
 
