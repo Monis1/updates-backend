@@ -31,6 +31,22 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Post> posts = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name="User_Following",
+            joinColumns={ @JoinColumn(name="FollowedUserId") },
+            inverseJoinColumns={ @JoinColumn(name="FollowingUserId") })
+    private Set<User> followingUsers = new java.util.HashSet<>();
+
+    @ManyToMany(mappedBy="followingUsers")
+    private Set<User> followedUsers = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Reaction> reactions = new HashSet<>();
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Comment> comments = new HashSet<>();
+
+
     public User() {
     }
 
@@ -103,5 +119,37 @@ public class User {
 
     public void setPosts(Set<Post> posts) {
         this.posts = posts;
+    }
+
+    public Set<User> getFollowingUsers() {
+        return followingUsers;
+    }
+
+    public void setFollowingUsers(Set<User> followingUsers) {
+        this.followingUsers = followingUsers;
+    }
+
+    public Set<User> getFollowedUsers() {
+        return followedUsers;
+    }
+
+    public void setFollowedUsers(Set<User> followedUsers) {
+        this.followedUsers = followedUsers;
+    }
+
+    public Set<Reaction> getReactions() {
+        return reactions;
+    }
+
+    public void setReactions(Set<Reaction> reactions) {
+        this.reactions = reactions;
+    }
+
+    public Set<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }

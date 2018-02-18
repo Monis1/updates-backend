@@ -29,6 +29,8 @@ public class PostMapperImpl implements PostMapper {
         postDTO.setGroupDTO(groupMapper.groupToGroupDto(post.getGroup()));
         postDTO.setUserDTO(userMapper.userToUserDto(post.getUser()));
         postDTO.setMedia(mediaMapper.mediaListToMediaDtoList(post.getMedia()));
+        postDTO.setNumberOfReactions((long) post.getReactions().size());
+        postDTO.setNumberOfComments((long) post.getComments().size());
 
         return postDTO;
     }

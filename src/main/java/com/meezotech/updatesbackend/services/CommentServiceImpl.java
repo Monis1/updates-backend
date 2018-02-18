@@ -1,0 +1,33 @@
+package com.meezotech.updatesbackend.services;
+
+import com.meezotech.updatesbackend.api.v1.mapper.CommentMapper;
+import com.meezotech.updatesbackend.api.v1.model.CommentDTO;
+import com.meezotech.updatesbackend.repositories.CommentRepository;
+import com.meezotech.updatesbackend.utilities.ApiUtility;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+@Service
+public class CommentServiceImpl implements CommentService {
+
+    private CommentRepository commentRepository;
+    private CommentMapper commentMapper;
+
+    public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper) {
+        this.commentRepository = commentRepository;
+        this.commentMapper = commentMapper;
+    }
+
+    @Override
+    public Page<CommentDTO> getAllCommentsByPostIdPaginated(Pageable pageable, Long postId) {
+        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
+        return commentRepository.findByPostId(page, postId).map(commentMapper::commentToCommentDto);
+    }
+
+    @Override
+    public CommentDTO createComment(CommentDTO commentDTO) {
+       return commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(commentDTO)));
+    }
+}
