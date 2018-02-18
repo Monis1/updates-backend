@@ -2,12 +2,16 @@ package com.meezotech.updatesbackend.services;
 
 import com.meezotech.updatesbackend.api.v1.mapper.PostMapper;
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
+import com.meezotech.updatesbackend.domain.Media;
+import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -40,7 +44,13 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostDTO createPost(PostDTO postDTO) {
-       return postMapper.postToPostDto(postRepository.save(postMapper.postDtoToPost(postDTO)));
+        Post post = postMapper.postDtoToPost(postDTO);
+        post.setDate(new Date());
+        for (Media media:
+             post.getMedia()) {
+            media.setPost(post);
+        }
+        return postMapper.postToPostDto(postRepository.save(post));
     }
 
 
