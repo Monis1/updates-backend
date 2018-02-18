@@ -12,6 +12,13 @@ public class PostDTO {
     private UserDTO userDTO;
     private Set<MediaDTO> media = new HashSet<>();
     private GroupDTO groupDTO;
+    private Long numberOfReactions;
+    private Long numberOfComments;
+
+    public PostDTO() {
+        numberOfComments = 0L;
+        numberOfReactions = 0L;
+    }
 
     public Long getId() {
         return id;
@@ -59,5 +66,21 @@ public class PostDTO {
 
     public void setGroupDTO(GroupDTO groupDTO) {
         this.groupDTO = groupDTO;
+    }
+
+    public Long getNumberOfReactions() {
+        return numberOfReactions;
+    }
+
+    public void setNumberOfReactions(Long numberOfReactions) {
+        this.numberOfReactions = numberOfReactions;
+    }
+
+    public Long getNumberOfComments() {
+        return numberOfComments;
+    }
+
+    public void setNumberOfComments(Long numberOfComments) {
+        this.numberOfComments = numberOfComments;
     }
 }
