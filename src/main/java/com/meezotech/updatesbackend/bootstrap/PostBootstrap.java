@@ -1,10 +1,7 @@
 package com.meezotech.updatesbackend.bootstrap;
 
 import com.meezotech.updatesbackend.domain.*;
-import com.meezotech.updatesbackend.repositories.CommentRepository;
-import com.meezotech.updatesbackend.repositories.GroupRepository;
-import com.meezotech.updatesbackend.repositories.PostRepository;
-import com.meezotech.updatesbackend.repositories.UserRepository;
+import com.meezotech.updatesbackend.repositories.*;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
@@ -20,13 +17,17 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
     private PostRepository postRepository;
     private UserRepository userRepository;
     private CommentRepository commentRepository;
+    private ReactionRepository reactionRepository;
     private static final Long size = 100L;
 
-    public PostBootstrap(GroupRepository groupRepository, PostRepository postRepository, UserRepository userRepository, CommentRepository commentRepository) {
+    public PostBootstrap(GroupRepository groupRepository, PostRepository postRepository,
+                         UserRepository userRepository, CommentRepository commentRepository,
+                         ReactionRepository reactionRepository) {
         this.groupRepository = groupRepository;
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
+        this.reactionRepository = reactionRepository;
     }
 
     @Override
@@ -38,13 +39,15 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         for (Long i = 1L; i < size; i++) {
             Post post = new Post();
-            post.setId(i);
+            post.setId(100L);
 
             Comment comment = new Comment();
             comment.setUser(user);
             comment.setPost(post);
             comment.setDate(new Date());
             comment.setCommentText("Comment " + i);
+
+            post.getComments().add(comment);
 
             commentRepository.save(comment);
         }
@@ -109,6 +112,17 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             posts.add(post);
         }
+        Reaction reaction = new Reaction();
+        reaction.setPost(posts.get(posts.size() - 1));
+        reaction.setUser(user);
+
+        Reaction reaction1 = new Reaction();
+        reaction1.setPost(posts.get(posts.size() - 1));
+        reaction1.setUser(user1);
+
+        posts.get(posts.size() - 1).getReactions().add(reaction);
+        posts.get(posts.size() - 1).getReactions().add(reaction1);
+
         return posts;
     }
 

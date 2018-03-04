@@ -2,6 +2,7 @@ package com.meezotech.updatesbackend.api.v1.mapper;
 
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
 import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.domain.Reaction;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -31,9 +32,21 @@ public class PostMapperImpl implements PostMapper {
         postDTO.setMedia(mediaMapper.mediaListToMediaDtoList(post.getMedia()));
         postDTO.setNumberOfReactions((long) post.getReactions().size());
         postDTO.setNumberOfComments((long) post.getComments().size());
+        postDTO.setReacted(checkIfUserReactedToThisPost(post, post.getUser().getId()));
 
         return postDTO;
     }
+
+    private boolean checkIfUserReactedToThisPost(Post post, Long userId) {
+        for (Reaction reaction:
+             post.getReactions()) {
+            if(reaction.getPost().getId().equals(post.getId())
+                    && reaction.getUser().getId().equals(userId))
+                return true;
+        }
+        return false;
+    }
+
 
     @Override
     public Post postDtoToPost(PostDTO postDTO) {

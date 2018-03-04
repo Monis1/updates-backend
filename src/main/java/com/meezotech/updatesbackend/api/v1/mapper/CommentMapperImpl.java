@@ -9,6 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class CommentMapperImpl implements CommentMapper {
 
+    private UserMapper userMapper;
+
+    public CommentMapperImpl(UserMapper userMapper) {
+        this.userMapper = userMapper;
+    }
+
     @Override
     public Comment commentDtoToComment(CommentDTO commentDTO) {
         if (commentDTO == null) {
@@ -16,15 +22,12 @@ public class CommentMapperImpl implements CommentMapper {
         }
         Comment comment = new Comment();
 
-        User user = new User();
-        user.setId(commentDTO.getUserId());
-
         Post post = new Post();
         post.setId(commentDTO.getPostId());
 
         comment.setCommentText(commentDTO.getCommentText());
         comment.setPost(post);
-        comment.setUser(user);
+        comment.setUser(userMapper.userDtoToUser(commentDTO.getUser()));
         comment.setDate(commentDTO.getDate());
 
         return comment;
@@ -36,7 +39,7 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        return new CommentDTO(comment.getUser().getId(),
+        return new CommentDTO(userMapper.userToUserDto(comment.getUser()),
                 comment.getPost().getId(), comment.getCommentText(), comment.getDate());
     }
 

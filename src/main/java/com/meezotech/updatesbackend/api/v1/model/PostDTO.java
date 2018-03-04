@@ -14,10 +14,12 @@ public class PostDTO {
     private GroupDTO groupDTO;
     private Long numberOfReactions;
     private Long numberOfComments;
+    private boolean isReacted;
 
     public PostDTO() {
         numberOfComments = 0L;
         numberOfReactions = 0L;
+        isReacted = false;
     }
 
     public Long getId() {
@@ -82,5 +84,13 @@ public class PostDTO {
 
     public void setNumberOfComments(Long numberOfComments) {
         this.numberOfComments = numberOfComments;
+    }
+
+    public boolean isReacted() {
+        return isReacted;
+    }
+
+    public void setReacted(boolean reacted) {
+        isReacted = reacted;
     }
 }
