@@ -9,6 +9,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class CommentServiceImpl implements CommentService {
 
@@ -28,6 +30,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public CommentDTO createComment(CommentDTO commentDTO) {
+        commentDTO.setDate(new Date());
        return commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(commentDTO)));
     }
 }
