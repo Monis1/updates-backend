@@ -22,19 +22,22 @@ public class PostController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<PostDTO> getAllPostsPaginated(Pageable pageable){
-        return postService.getAllPostsPaginated(pageable);
+    public Page<PostDTO> getAllPostsPaginated(Pageable pageable, @RequestParam("userId") Long userId){
+        return postService.getAllPostsPaginated(pageable, userId);
     }
 
     @GetMapping("/group")
     @ResponseStatus(HttpStatus.OK)
-    public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable,@RequestParam("groupId") Long groupId){
-        return postService.getAllPostsByGroupIdPaginated(pageable, groupId);
+    public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable,
+                                                       @RequestParam("groupId") Long groupId,
+                                                       @RequestParam("userId") Long userId){
+        return postService.getAllPostsByGroupIdPaginated(pageable, groupId, userId);
     }
 
     @GetMapping("/user")
     @ResponseStatus(HttpStatus.OK)
-    public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, @RequestParam("userId") Long userId){
+    public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable,
+                                                      @RequestParam("userId") Long userId){
         return postService.getAllPostsByUserIdPaginated(pageable, userId);
     }
 

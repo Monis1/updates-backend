@@ -19,7 +19,7 @@ public class PostMapperImpl implements PostMapper {
     }
 
     @Override
-    public PostDTO postToPostDto(Post post) {
+    public PostDTO postToPostDto(Post post, Long userId) {
         if (post == null) {
             return null;
         }
@@ -32,7 +32,7 @@ public class PostMapperImpl implements PostMapper {
         postDTO.setMedia(mediaMapper.mediaListToMediaDtoList(post.getMedia()));
         postDTO.setNumberOfReactions((long) post.getReactions().size());
         postDTO.setNumberOfComments((long) post.getComments().size());
-        postDTO.setReacted(checkIfUserReactedToThisPost(post, post.getUser().getId()));
+        postDTO.setReacted(checkIfUserReactedToThisPost(post, userId));
 
         return postDTO;
     }

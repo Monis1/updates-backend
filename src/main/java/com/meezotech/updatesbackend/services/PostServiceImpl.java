@@ -2,16 +2,22 @@ package com.meezotech.updatesbackend.services;
 
 import com.meezotech.updatesbackend.api.v1.mapper.PostMapper;
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
+import com.meezotech.updatesbackend.api.v1.model.ReactionDTO;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.domain.Reaction;
 import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -25,21 +31,36 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Page<PostDTO> getAllPostsPaginated(Pageable pageable) {
+    public Page<PostDTO> getAllPostsPaginated(Pageable pageable, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
-        return postRepository.findAll(page).map(postMapper::postToPostDto);
+        Page<Post> postPage = postRepository.findAll(page);
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for (Post post : postPage) {
+            postDTOS.add(postMapper.postToPostDto(post, userId));
+        }
+        return new PageImpl<>(postDTOS);
     }
 
     @Override
-    public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId) {
+    public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
-        return postRepository.findByGroupId(page, groupId).map(postMapper::postToPostDto);
+        Page<Post> postPage = postRepository.findByGroupId(page, groupId);
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for (Post post : postPage) {
+            postDTOS.add(postMapper.postToPostDto(post, userId));
+        }
+        return new PageImpl<>(postDTOS);
     }
 
     @Override
     public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
-        return postRepository.findByUserId(page, userId).map(postMapper::postToPostDto);
+        Page<Post> postPage = postRepository.findByUserId(page, userId);
+        List<PostDTO> postDTOS = new ArrayList<>();
+        for (Post post : postPage) {
+            postDTOS.add(postMapper.postToPostDto(post, userId));
+        }
+        return new PageImpl<>(postDTOS);
     }
 
     @Override
@@ -50,7 +71,7 @@ public class PostServiceImpl implements PostService {
              post.getMedia()) {
             media.setPost(post);
         }
-        return postMapper.postToPostDto(postRepository.save(post));
+        return postMapper.postToPostDto(postRepository.save(post), -1L);
     }
 
 

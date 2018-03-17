@@ -17,17 +17,19 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
     private PostRepository postRepository;
     private UserRepository userRepository;
     private CommentRepository commentRepository;
-    private ReactionRepository reactionRepository;
+    private DocumentRepository documentRepository;
     private static final Long size = 100L;
 
-    public PostBootstrap(GroupRepository groupRepository, PostRepository postRepository,
-                         UserRepository userRepository, CommentRepository commentRepository,
-                         ReactionRepository reactionRepository) {
+    public PostBootstrap(GroupRepository groupRepository,
+                         PostRepository postRepository,
+                         UserRepository userRepository,
+                         CommentRepository commentRepository,
+                         DocumentRepository documentRepository) {
         this.groupRepository = groupRepository;
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;
-        this.reactionRepository = reactionRepository;
+        this.documentRepository = documentRepository;
     }
 
     @Override
@@ -51,6 +53,14 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             commentRepository.save(comment);
         }
+
+        Document document1 = new Document("about", "MangoMan App is all about fun");
+        Document document2 = new Document("rules", "Rules are strict");
+        Document document3 = new Document("policy", "Policy is Strict");
+
+        documentRepository.save(document1);
+        documentRepository.save(document2);
+        documentRepository.save(document3);
     }
 
     private List<Post> getBulkPosts() {

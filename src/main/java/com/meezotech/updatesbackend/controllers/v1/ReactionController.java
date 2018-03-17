@@ -24,7 +24,7 @@ public class ReactionController {
          reactionService.createReactions(reactions);
     }
 
-    @DeleteMapping
+    @PostMapping("/delete")
     @ResponseStatus(HttpStatus.OK)
     public void deleteReactions(@RequestBody ReactionListDTO reactions){
         reactionService.deleteReactions(reactions);

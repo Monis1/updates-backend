@@ -5,7 +5,7 @@ import com.meezotech.updatesbackend.domain.Post;
 
 public interface PostMapper {
 
-    PostDTO postToPostDto(Post post);
+    PostDTO postToPostDto(Post post, Long userId);
     Post postDtoToPost(PostDTO postDTO);
 
 
