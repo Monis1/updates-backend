@@ -20,6 +20,8 @@ public class Group {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Post> posts = new HashSet<>();
 
+    private boolean deleted;
+
     public Group(){}
 
     public Group(Long id, String name) {
@@ -59,6 +61,12 @@ public class Group {
         return name;
     }
 
+    public boolean isDeleted() {
+        return deleted;
+    }
 
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
 }
 

@@ -33,7 +33,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getAllPostsPaginated(Pageable pageable, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
-        Page<Post> postPage = postRepository.findAll(page);
+        Page<Post> postPage = postRepository.findByGroup_Deleted(page, false);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
             postDTOS.add(postMapper.postToPostDto(post, userId));

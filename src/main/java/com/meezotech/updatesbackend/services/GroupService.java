@@ -7,5 +7,7 @@ public interface GroupService {
 
     GroupListDTO getAllGroups();
     GroupDTO createGroup(GroupDTO groupDTO);
+    void hideGroup(GroupDTO groupDTO);
+    void unHideGroup(GroupDTO groupDTO);
 
 }

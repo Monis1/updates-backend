@@ -4,6 +4,7 @@ public class GroupDTO {
 
     private Long id;
     private String name;
+    private boolean isDeleted;
 
     public GroupDTO(){}
 
@@ -26,5 +27,13 @@ public class GroupDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 }
