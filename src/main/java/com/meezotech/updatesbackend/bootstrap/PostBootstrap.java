@@ -73,6 +73,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         Group group1 = new Group();
         group1.setName("Updates1");
+        group1.setDeleted(true);
         groupRepository.save(group1);
 
         User user = new User();

@@ -41,4 +41,19 @@ public class GroupServiceImpl implements GroupService {
         return groupMapper.groupToGroupDto(groupRepository.save(group));
     }
 
+    @Override
+    public void hideGroup(GroupDTO groupDTO) {
+        Group group = groupMapper.groupDtoToGroup(groupDTO);
+        group.setDeleted(true);
+        groupRepository.save(group);
+    }
+
+    @Override
+    public void unHideGroup(GroupDTO groupDTO) {
+        Group group = groupMapper.groupDtoToGroup(groupDTO);
+        group.setDeleted(false);
+        groupRepository.save(group);
+    }
+
+
 }

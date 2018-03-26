@@ -30,4 +30,16 @@ public class GroupController {
         return groupService.createGroup(groupDTO);
     }
 
+    @PutMapping("/hide")
+    @ResponseStatus(HttpStatus.OK)
+    public void hideGroup(@RequestBody GroupDTO groupDTO){
+         groupService.hideGroup(groupDTO);
+    }
+
+    @PutMapping("/unhide")
+    @ResponseStatus(HttpStatus.OK)
+    public void unHideGroup(@RequestBody GroupDTO groupDTO){
+        groupService.unHideGroup(groupDTO);
+    }
+
 }

@@ -15,6 +15,7 @@ public class GroupMapperImpl implements GroupMapper {
         Group group = new Group();
         group.setId(groupDTO.getId());
         group.setName(groupDTO.getName());
+        group.setDeleted(groupDTO.isDeleted());
 
         return group;
     }
@@ -27,6 +28,7 @@ public class GroupMapperImpl implements GroupMapper {
         GroupDTO groupDTO = new GroupDTO();
         groupDTO.setId(group.getId());
         groupDTO.setName(group.getName());
+        groupDTO.setDeleted(group.isDeleted());
 
         return groupDTO;
     }
