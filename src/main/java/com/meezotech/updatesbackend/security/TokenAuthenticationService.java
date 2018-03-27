@@ -25,7 +25,7 @@ public class TokenAuthenticationService {
     /**
      * Add authentication token to the header.
      *
-     * @param response      the response
+     * @param response the response
      * @param userName the user name for which the token is generated
      */
     public static void addAuthentication(HttpServletResponse response, String userName) {
@@ -52,6 +52,9 @@ public class TokenAuthenticationService {
                     .parseClaimsJws(token.replace(TOKEN_PREFIX, ""))
                     .getBody()
                     .getSubject();
+
+            if(request.getRequestURI().contains("admin") && !user.equals("razar"))
+                return null;
 
             return user != null ?
                     new UsernamePasswordAuthenticationToken(user, null, emptyList()) :
