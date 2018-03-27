@@ -24,19 +24,19 @@ public class GroupController {
         return groupService.getAllGroups();
     }
 
-    @PostMapping
+    @PostMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
     public GroupDTO createGroup(@RequestBody GroupDTO groupDTO){
         return groupService.createGroup(groupDTO);
     }
 
-    @PutMapping("/hide")
+    @PutMapping("/admin/hide")
     @ResponseStatus(HttpStatus.OK)
     public void hideGroup(@RequestBody GroupDTO groupDTO){
          groupService.hideGroup(groupDTO);
     }
 
-    @PutMapping("/unhide")
+    @PutMapping("/admin/unhide")
     @ResponseStatus(HttpStatus.OK)
     public void unHideGroup(@RequestBody GroupDTO groupDTO){
         groupService.unHideGroup(groupDTO);
