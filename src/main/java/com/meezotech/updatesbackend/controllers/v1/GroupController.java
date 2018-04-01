@@ -30,13 +30,13 @@ public class GroupController {
         return groupService.createGroup(groupDTO);
     }
 
-    @PutMapping("/admin/hide")
+    @PostMapping("/admin/hide")
     @ResponseStatus(HttpStatus.OK)
     public void hideGroup(@RequestBody GroupDTO groupDTO){
          groupService.hideGroup(groupDTO);
     }
 
-    @PutMapping("/admin/unhide")
+    @PostMapping("/admin/unhide")
     @ResponseStatus(HttpStatus.OK)
     public void unHideGroup(@RequestBody GroupDTO groupDTO){
         groupService.unHideGroup(groupDTO);
