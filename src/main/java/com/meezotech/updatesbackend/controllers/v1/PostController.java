@@ -47,4 +47,10 @@ public class PostController {
         return postService.createPost(postDTO);
     }
 
+    @DeleteMapping
+    @ResponseStatus
+    public void deletePost(@RequestBody PostDTO postDTO) {
+        postService.deletePost(postDTO);
+    }
+
 }

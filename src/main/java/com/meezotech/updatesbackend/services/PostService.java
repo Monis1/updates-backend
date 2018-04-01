@@ -15,4 +15,6 @@ public interface PostService {
 
     PostDTO createPost(PostDTO postDTO);
 
+    void deletePost(PostDTO postDTO);
+
 }
