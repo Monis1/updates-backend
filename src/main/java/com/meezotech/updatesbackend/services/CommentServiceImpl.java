@@ -33,4 +33,9 @@ public class CommentServiceImpl implements CommentService {
         commentDTO.setDate(new Date());
        return commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(commentDTO)));
     }
+
+    @Override
+    public void deleteComment(CommentDTO commentDTO) {
+        commentRepository.delete(commentMapper.commentDtoToComment(commentDTO));
+    }
 }

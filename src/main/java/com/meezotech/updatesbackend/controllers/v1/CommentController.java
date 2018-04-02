@@ -31,4 +31,10 @@ public class CommentController {
         return commentService.createComment(commentDTO);
     }
 
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void deleteComment(@RequestBody CommentDTO commentDTO){
+        commentService.deleteComment(commentDTO);
+    }
+
 }
