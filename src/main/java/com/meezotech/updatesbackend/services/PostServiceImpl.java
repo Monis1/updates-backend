@@ -44,7 +44,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
-        Page<Post> postPage = postRepository.findByGroupId(page, groupId);
+        Page<Post> postPage = postRepository.findByGroupIdAndGroup_Deleted(page, groupId, false);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
             postDTOS.add(postMapper.postToPostDto(post, userId));
@@ -55,7 +55,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
-        Page<Post> postPage = postRepository.findByUserId(page, userId);
+        Page<Post> postPage = postRepository.findByUserIdAndGroup_Deleted(page, userId, false);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
             postDTOS.add(postMapper.postToPostDto(post, userId));
@@ -72,6 +72,11 @@ public class PostServiceImpl implements PostService {
             media.setPost(post);
         }
         return postMapper.postToPostDto(postRepository.save(post), -1L);
+    }
+
+    @Override
+    public void deletePost(PostDTO postDTO) {
+        postRepository.delete(postMapper.postDtoToPost(postDTO));
     }
 
 

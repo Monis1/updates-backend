@@ -10,4 +10,5 @@ public interface CommentService {
 
     CommentDTO createComment(CommentDTO commentDTO);
 
+    void deleteComment(CommentDTO commentDTO);
 }
