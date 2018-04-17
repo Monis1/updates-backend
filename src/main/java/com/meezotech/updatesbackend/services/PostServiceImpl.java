@@ -75,8 +75,8 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public void deletePost(PostDTO postDTO) {
-        postRepository.delete(postMapper.postDtoToPost(postDTO));
+    public void deletePost(Long id) {
+        postRepository.delete(id);
     }
 
 

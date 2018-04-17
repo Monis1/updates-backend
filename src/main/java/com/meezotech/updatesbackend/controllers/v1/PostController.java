@@ -49,8 +49,8 @@ public class PostController {
 
     @DeleteMapping
     @ResponseStatus
-    public void deletePost(@RequestBody PostDTO postDTO) {
-        postService.deletePost(postDTO);
+    public void deletePost(@RequestParam("postId") Long postId) {
+        postService.deletePost(postId);
     }
 
 }
