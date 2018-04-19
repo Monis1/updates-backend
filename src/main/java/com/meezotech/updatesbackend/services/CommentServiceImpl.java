@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public void deleteComment(CommentDTO commentDTO) {
-        commentRepository.delete(commentMapper.commentDtoToComment(commentDTO));
+    public void deleteComment(Long id) {
+        commentRepository.delete(id);
     }
 }

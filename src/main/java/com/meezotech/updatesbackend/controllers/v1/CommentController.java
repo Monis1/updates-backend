@@ -33,8 +33,8 @@ public class CommentController {
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void deleteComment(@RequestBody CommentDTO commentDTO){
-        commentService.deleteComment(commentDTO);
+    public void deleteComment(@RequestParam("commentId") Long commentId){
+        commentService.deleteComment(commentId);
     }
 
 }

@@ -29,6 +29,7 @@ public class CommentMapperImpl implements CommentMapper {
         comment.setPost(post);
         comment.setUser(userMapper.userDtoToUser(commentDTO.getUser()));
         comment.setDate(commentDTO.getDate());
+        comment.setId(commentDTO.getId());
 
         return comment;
     }
@@ -39,7 +40,7 @@ public class CommentMapperImpl implements CommentMapper {
             return null;
         }
 
-        return new CommentDTO(userMapper.userToUserDto(comment.getUser()),
+        return new CommentDTO(comment.getId(), userMapper.userToUserDto(comment.getUser()),
                 comment.getPost().getId(), comment.getCommentText(), comment.getDate());
     }
 

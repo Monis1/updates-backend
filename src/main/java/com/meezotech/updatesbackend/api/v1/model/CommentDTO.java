@@ -4,6 +4,7 @@ import java.util.Date;
 
 public class CommentDTO {
 
+    private Long id;
     private UserDTO user;
     private Long postId;
     private String commentText;
@@ -12,11 +13,20 @@ public class CommentDTO {
     public CommentDTO() {
     }
 
-    public CommentDTO(UserDTO user, Long postId, String commentText, Date date) {
+    public CommentDTO(Long id, UserDTO user, Long postId, String commentText, Date date) {
+        this.id = id;
         this.user = user;
         this.postId = postId;
         this.commentText = commentText;
         this.date = date;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getPostId() {
