@@ -1,6 +1,7 @@
 package com.meezotech.updatesbackend.controllers.v1;
 
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
+import com.meezotech.updatesbackend.api.v1.model.UserListDTO;
 import com.meezotech.updatesbackend.services.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserDTO getUserById(@PathVariable Long id){
         return userService.getUserById(id);
+    }
+
+    @GetMapping("/admin")
+    @ResponseStatus(HttpStatus.OK)
+    public UserListDTO getAllUsers(){
+        return userService.getAllUsers();
     }
 
 }
