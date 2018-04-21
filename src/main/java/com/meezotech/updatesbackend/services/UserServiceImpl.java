@@ -2,11 +2,12 @@ package com.meezotech.updatesbackend.services;
 
 import com.meezotech.updatesbackend.api.v1.mapper.UserMapper;
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
+import com.meezotech.updatesbackend.api.v1.model.UserListDTO;
 import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -33,4 +34,17 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(Long id) {
         return userMapper.userToUserDto(userRepository.findOne(id));
     }
+
+    @Override
+    public UserListDTO getAllUsers() {
+        Set<User> users = new HashSet<>();
+        userRepository.findAll().iterator().forEachRemaining(users::add);
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user :
+                users) {
+            userDTOS.add(userMapper.userToUserDto(user));
+        }
+        return new UserListDTO(userDTOS);
+    }
+
 }
