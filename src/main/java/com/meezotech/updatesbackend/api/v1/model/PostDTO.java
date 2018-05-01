@@ -15,6 +15,7 @@ public class PostDTO {
     private Long numberOfReactions;
     private Long numberOfComments;
     private boolean isReacted;
+    private boolean isApproved;
 
     public PostDTO() {
         numberOfComments = 0L;
@@ -92,5 +93,13 @@ public class PostDTO {
 
     public void setReacted(boolean reacted) {
         isReacted = reacted;
+    }
+
+    public boolean isApproved() {
+        return isApproved;
+    }
+
+    public void setApproved(boolean approved) {
+        isApproved = approved;
     }
 }

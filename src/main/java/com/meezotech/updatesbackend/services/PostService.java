@@ -17,4 +17,5 @@ public interface PostService {
 
     void deletePost(Long id);
 
+    void approvePost(Long postId, boolean isApproved);
 }

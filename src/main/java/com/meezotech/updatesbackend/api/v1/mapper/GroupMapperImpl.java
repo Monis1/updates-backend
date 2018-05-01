@@ -16,6 +16,7 @@ public class GroupMapperImpl implements GroupMapper {
         group.setId(groupDTO.getId());
         group.setName(groupDTO.getName());
         group.setDeleted(groupDTO.isDeleted());
+        group.setTypeApproval(groupDTO.isTypeApproval());
 
         return group;
     }
@@ -29,6 +30,7 @@ public class GroupMapperImpl implements GroupMapper {
         groupDTO.setId(group.getId());
         groupDTO.setName(group.getName());
         groupDTO.setDeleted(group.isDeleted());
+        groupDTO.setTypeApproval(group.isTypeApproval());
 
         return groupDTO;
     }

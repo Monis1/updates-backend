@@ -5,8 +5,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.Date;
+
 public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
-    Page<Post> findByGroup_Deleted(Pageable pageable, boolean deleted);
-    Page<Post> findByGroupIdAndGroup_Deleted(Pageable pageable, Long id, boolean deleted);
-    Page<Post> findByUserIdAndGroup_Deleted(Pageable pageable, Long id, boolean deleted);
+
+    Page<Post> findByGroup_DeletedAndApproved(Pageable pageable, boolean deleted, boolean isApproved);
+
+    Page<Post> findByGroupIdAndGroup_DeletedAndApproved(Pageable pageable, Long id, boolean deleted, boolean approved);
+
+    Page<Post> findByUserIdAndGroup_DeletedAndApproved(Pageable pageable, Long id, boolean deleted, boolean approved);
+
+    Long countAllByDateGreaterThanEqualAndDateLessThanEqual(Date startDate, Date endDate);
+
 }

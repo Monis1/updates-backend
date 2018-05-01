@@ -33,6 +33,7 @@ public class PostMapperImpl implements PostMapper {
         postDTO.setNumberOfReactions((long) post.getReactions().size());
         postDTO.setNumberOfComments((long) post.getComments().size());
         postDTO.setReacted(checkIfUserReactedToThisPost(post, userId));
+        postDTO.setApproved(post.isApproved());
 
         return postDTO;
     }
@@ -60,6 +61,7 @@ public class PostMapperImpl implements PostMapper {
         post.setMedia(mediaMapper.mediaDtoListToMediaList(postDTO.getMedia()));
         post.setGroup(groupMapper.groupDtoToGroup(postDTO.getGroupDTO()));
         post.setUser(userMapper.userDtoToUser(postDTO.getUserDTO()));
+        post.setApproved(postDTO.isApproved());
 
         return post;
     }

@@ -24,6 +24,8 @@ public class Post {
     @ManyToOne
     private Group group;
 
+    private boolean approved;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private Set<Media> media = new HashSet<>();
 
@@ -95,6 +97,14 @@ public class Post {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public boolean isApproved() {
+        return approved;
+    }
+
+    public void setApproved(boolean approved) {
+        this.approved = approved;
     }
 }
 

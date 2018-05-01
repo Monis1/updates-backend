@@ -47,6 +47,12 @@ public class PostController {
         return postService.createPost(postDTO);
     }
 
+    @PutMapping("/admin/approval")
+    @ResponseStatus(HttpStatus.OK)
+    public void approvePost(@RequestParam("postId") Long postId, @RequestParam("isApproved") boolean isApproved){
+        postService.approvePost(postId, isApproved);
+    }
+
     @DeleteMapping
     @ResponseStatus
     public void deletePost(@RequestParam("postId") Long postId) {

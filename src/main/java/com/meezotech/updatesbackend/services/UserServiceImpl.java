@@ -27,6 +27,7 @@ public class UserServiceImpl implements UserService {
         if (userOptional.isPresent()) { // if user already exists, returns the user
             return userMapper.userToUserDto(userOptional.get());
         }
+        user.setJoiningDate(new Date());
         return userMapper.userToUserDto(userRepository.save(user)); // save and return
     }
 
