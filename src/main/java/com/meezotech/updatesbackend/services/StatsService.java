@@ -6,9 +6,12 @@ public interface StatsService {
 
     StatsDTO getUserStats(Long userId);
 
-    StatsDTO getGroupStats(Long groupId);
-
     StatsDTO getOverAllStats();
 
     StatsDTO getMonthlyStats();
+
+    StatsDTO getOverAllGroupStats(Long groupId);
+
+    StatsDTO getMonthlyGroupStats(Long groupId);
+
 }

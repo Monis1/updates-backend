@@ -9,5 +9,6 @@ public interface GroupService {
     GroupDTO createGroup(GroupDTO groupDTO);
     void hideGroup(GroupDTO groupDTO);
     void unHideGroup(GroupDTO groupDTO);
+    GroupDTO getGroupById(Long groupId);
 
 }

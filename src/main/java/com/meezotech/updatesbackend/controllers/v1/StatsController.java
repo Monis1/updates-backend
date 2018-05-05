@@ -23,10 +23,16 @@ public class StatsController {
         return statsService.getUserStats(userId);
     }
 
-    @GetMapping("/group/admin")
+    @GetMapping("/group/overall/admin")
     @ResponseStatus(HttpStatus.OK)
-    public StatsDTO getGroupStats(@RequestParam("groupId") Long groupId) {
-        return statsService.getGroupStats(groupId);
+    public StatsDTO getOverAllGroupStats(@RequestParam("groupId") Long groupId) {
+        return statsService.getOverAllGroupStats(groupId);
+    }
+
+    @GetMapping("/group/monthly/admin")
+    @ResponseStatus(HttpStatus.OK)
+    public StatsDTO getMonthlyGroupStats(@RequestParam("groupId") Long groupId) {
+        return statsService.getMonthlyGroupStats(groupId);
     }
 
     @GetMapping("/overall/admin")

@@ -2,6 +2,7 @@ package com.meezotech.updatesbackend.services;
 
 import com.meezotech.updatesbackend.api.v1.mapper.PostMapper;
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
+import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
@@ -67,7 +68,7 @@ public class PostServiceImpl implements PostService {
     public PostDTO createPost(PostDTO postDTO) {
         Post post = postMapper.postDtoToPost(postDTO);
         if(groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
-            throw new NullPointerException();
+            throw new IllegalStateException();
         post.setDate(new Date());
         for (Media media:
              post.getMedia()) {
@@ -90,6 +91,17 @@ public class PostServiceImpl implements PostService {
         Post post = postRepository.findOne(postId);
         post.setApproved(isApproved);
         postRepository.save(post);
+    }
+
+    @Override
+    public PostListDTO getAllPostsForGroupAdmin(long groupId) {
+        List<Post> posts = postRepository.findByGroup_Id(groupId);
+        PostListDTO postListDTO = new PostListDTO();
+        for (Post post:
+             posts) {
+            postListDTO.getPosts().add(postMapper.postToPostDto(post, -1L));
+        }
+        return postListDTO;
     }
 
 

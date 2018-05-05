@@ -1,6 +1,7 @@
 package com.meezotech.updatesbackend.controllers.v1;
 
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
+import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
 import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.services.PostService;
 import org.springframework.data.domain.Page;
@@ -39,6 +40,12 @@ public class PostController {
     public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable,
                                                       @RequestParam("userId") Long userId){
         return postService.getAllPostsByUserIdPaginated(pageable, userId);
+    }
+
+    @GetMapping("/admin")
+    @ResponseStatus(HttpStatus.OK)
+    public PostListDTO getAllPostsForGroupAdmin(@RequestParam("groupId") long groupId){
+        return postService.getAllPostsForGroupAdmin(groupId);
     }
 
     @PostMapping
