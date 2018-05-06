@@ -1,6 +1,5 @@
 package com.meezotech.updatesbackend.repositories;
 
-import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
 import com.meezotech.updatesbackend.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +21,7 @@ public interface PostRepository extends PagingAndSortingRepository<Post, Long> {
     Long countAllByGroupIdAndDateGreaterThanEqualAndDateLessThanEqual(Long id, Date startDate, Date endDate);
 
     List<Post> findByGroup_Id(Long id);
+
+    List<Post> findByGroup_IdAndFromAdmin(Long id, boolean fromAdmin);
 
 }

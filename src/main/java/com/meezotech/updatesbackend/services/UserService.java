@@ -8,5 +8,7 @@ public interface UserService {
     UserDTO createUser(UserDTO userDTO);
     UserDTO getUserById(Long id);
     UserListDTO getAllUsers();
+    UserListDTO getAllGroupUsers(Long groupId);
+    void changeBanStatus(Long groupId, Long userId, boolean isBanned);
 
 }

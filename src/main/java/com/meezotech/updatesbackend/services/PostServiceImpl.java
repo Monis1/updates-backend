@@ -3,6 +3,7 @@ package com.meezotech.updatesbackend.services;
 import com.meezotech.updatesbackend.api.v1.mapper.PostMapper;
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
 import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
+import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
@@ -96,6 +97,10 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostListDTO getAllPostsForGroupAdmin(long groupId) {
         List<Post> posts = postRepository.findByGroup_Id(groupId);
+        return getPostListDTO(posts);
+    }
+
+    private PostListDTO getPostListDTO(List<Post> posts) {
         PostListDTO postListDTO = new PostListDTO();
         for (Post post:
              posts) {
@@ -104,5 +109,25 @@ public class PostServiceImpl implements PostService {
         return postListDTO;
     }
 
+    @Override
+    public PostListDTO getAnnouncements(Long groupId) {
+        List<Post> posts = postRepository.findByGroup_IdAndFromAdmin(groupId, true);
+        return getPostListDTO(posts);
+    }
+
+    @Override
+    public boolean createAdminPost(String text, Long groupId) {
+        Group group = groupRepository.findOne(groupId);
+        Post post = new Post();
+        post.setFromAdmin(true);
+        post.setDate(new Date());
+        post.setGroup(group);
+        for (Media media:
+                post.getMedia()) {
+            media.setPost(post);
+        }
+        postMapper.postToPostDto(postRepository.save(post), -1L);
+        return true;
+    }
 
 }

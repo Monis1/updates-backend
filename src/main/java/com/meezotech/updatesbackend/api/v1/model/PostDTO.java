@@ -16,6 +16,7 @@ public class PostDTO {
     private Long numberOfComments;
     private boolean isReacted;
     private boolean isApproved;
+    private boolean isFromAdmin;
 
     public PostDTO() {
         numberOfComments = 0L;
@@ -101,5 +102,13 @@ public class PostDTO {
 
     public void setApproved(boolean approved) {
         isApproved = approved;
+    }
+
+    public boolean isFromAdmin() {
+        return isFromAdmin;
+    }
+
+    public void setFromAdmin(boolean fromAdmin) {
+        isFromAdmin = fromAdmin;
     }
 }

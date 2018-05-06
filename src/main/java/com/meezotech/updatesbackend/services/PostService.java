@@ -22,4 +22,8 @@ public interface PostService {
 
     PostListDTO getAllPostsForGroupAdmin(long groupId);
 
+    PostListDTO getAnnouncements(Long groupId);
+
+    boolean createAdminPost(String text, Long groupId);
+
 }

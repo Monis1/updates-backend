@@ -20,20 +20,34 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO createUser(@RequestBody UserDTO userDTO){
+    public UserDTO createUser(@RequestBody UserDTO userDTO) {
         return userService.createUser(userDTO);
     }
 
     @GetMapping({"/{id}"})
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUserById(@PathVariable Long id){
+    public UserDTO getUserById(@PathVariable Long id) {
         return userService.getUserById(id);
     }
 
     @GetMapping("/admin")
     @ResponseStatus(HttpStatus.OK)
-    public UserListDTO getAllUsers(){
+    public UserListDTO getAllUsers() {
         return userService.getAllUsers();
+    }
+
+    @GetMapping("/group/admin")
+    @ResponseStatus(HttpStatus.OK)
+    public UserListDTO getAllGroupUsers(@RequestParam("groupId") Long groupId) {
+        return userService.getAllGroupUsers(groupId);
+    }
+
+    @PutMapping("/ban/status/admin")
+    @ResponseStatus(HttpStatus.OK)
+    public void changeGroupBanStatus(@RequestParam("groupId") Long groupId,
+                                     @RequestParam("userId") Long userId,
+                                     @RequestParam("isBanned") boolean isBanned) {
+        userService.changeBanStatus(groupId, userId, isBanned);
     }
 
 }

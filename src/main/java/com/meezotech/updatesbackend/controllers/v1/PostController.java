@@ -27,6 +27,12 @@ public class PostController {
         return postService.getAllPostsPaginated(pageable, userId);
     }
 
+    @GetMapping("/Announcements")
+    @ResponseStatus(HttpStatus.OK)
+    public PostListDTO getAnnouncements(@RequestParam("groupId") Long groupId){
+        return postService.getAnnouncements(groupId);
+    }
+
     @GetMapping("/group")
     @ResponseStatus(HttpStatus.OK)
     public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable,
@@ -52,6 +58,12 @@ public class PostController {
     @ResponseStatus(HttpStatus.OK)
     public PostDTO createPost(@RequestBody PostDTO postDTO){
         return postService.createPost(postDTO);
+    }
+
+    @PutMapping("/admin")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean createAdminPost(@RequestParam("text") String text, @RequestParam("groupId") Long groupId){
+        return postService.createAdminPost(text, groupId);
     }
 
     @PutMapping("/admin/approval")

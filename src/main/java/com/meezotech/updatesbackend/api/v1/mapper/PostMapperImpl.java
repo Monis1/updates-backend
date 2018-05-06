@@ -34,14 +34,15 @@ public class PostMapperImpl implements PostMapper {
         postDTO.setNumberOfComments((long) post.getComments().size());
         postDTO.setReacted(checkIfUserReactedToThisPost(post, userId));
         postDTO.setApproved(post.isApproved());
+        postDTO.setFromAdmin(post.isFromAdmin());
 
         return postDTO;
     }
 
     private boolean checkIfUserReactedToThisPost(Post post, Long userId) {
-        for (Reaction reaction:
-             post.getReactions()) {
-            if(reaction.getPost().getId().equals(post.getId())
+        for (Reaction reaction :
+                post.getReactions()) {
+            if (reaction.getPost().getId().equals(post.getId())
                     && reaction.getUser().getId().equals(userId))
                 return true;
         }
@@ -62,6 +63,7 @@ public class PostMapperImpl implements PostMapper {
         post.setGroup(groupMapper.groupDtoToGroup(postDTO.getGroupDTO()));
         post.setUser(userMapper.userDtoToUser(postDTO.getUserDTO()));
         post.setApproved(postDTO.isApproved());
+        post.setFromAdmin(postDTO.isFromAdmin());
 
         return post;
     }

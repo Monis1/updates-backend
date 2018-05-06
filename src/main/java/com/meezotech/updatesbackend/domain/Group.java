@@ -14,7 +14,7 @@ public class Group {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy="groups")
+    @ManyToMany(mappedBy = "groups")
     private Set<User> bannedUsers = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
@@ -24,7 +24,12 @@ public class Group {
 
     private boolean isTypeApproval;
 
-    public Group(){}
+    public Group() {
+    }
+
+    public Group(Long id) {
+        this.id = id;
+    }
 
     public Group(Long id, String name) {
         this.id = id;

@@ -26,6 +26,8 @@ public class Post {
 
     private boolean approved;
 
+    private boolean fromAdmin;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private Set<Media> media = new HashSet<>();
 
@@ -105,6 +107,14 @@ public class Post {
 
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    public boolean isFromAdmin() {
+        return fromAdmin;
+    }
+
+    public void setFromAdmin(boolean fromAdmin) {
+        this.fromAdmin = fromAdmin;
     }
 }
 
