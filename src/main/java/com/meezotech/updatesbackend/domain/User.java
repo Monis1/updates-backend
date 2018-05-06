@@ -1,6 +1,7 @@
 package com.meezotech.updatesbackend.domain;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,6 +23,8 @@ public class User {
 
     private String password;
 
+    private Date joiningDate;
+
     @Column(nullable = false)
     private String profilePictureUrl;
 
@@ -36,6 +39,12 @@ public class User {
             joinColumns={ @JoinColumn(name="FollowedUserId") },
             inverseJoinColumns={ @JoinColumn(name="FollowingUserId") })
     private Set<User> followingUsers = new java.util.HashSet<>();
+
+    @ManyToMany
+    @JoinTable(name="Banned_Users",
+            joinColumns={ @JoinColumn(name="user_id") },
+            inverseJoinColumns={ @JoinColumn(name="group_id") })
+    private Set<Group> groups = new java.util.HashSet<>();
 
     @ManyToMany(mappedBy="followingUsers")
     private Set<User> followedUsers = new HashSet<>();
@@ -151,5 +160,21 @@ public class User {
 
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
+    }
+
+    public Set<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
+    }
+
+    public Date getJoiningDate() {
+        return joiningDate;
+    }
+
+    public void setJoiningDate(Date joiningDate) {
+        this.joiningDate = joiningDate;
     }
 }

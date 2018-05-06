@@ -5,6 +5,15 @@ public class GroupDTO {
     private Long id;
     private String name;
     private boolean isDeleted;
+    private boolean isTypeApproval;
+
+    public boolean isTypeApproval() {
+        return isTypeApproval;
+    }
+
+    public void setTypeApproval(boolean typeApproval) {
+        isTypeApproval = typeApproval;
+    }
 
     public GroupDTO(){}
 

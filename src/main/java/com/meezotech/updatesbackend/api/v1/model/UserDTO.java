@@ -11,6 +11,7 @@ public class UserDTO {
     private Long followers;
     private Long following;
     private Long numberOfPosts;
+    private boolean isBanned;
 
     public UserDTO() {
         followers = 0L;
@@ -95,5 +96,13 @@ public class UserDTO {
 
     public void setNumberOfPosts(Long numberOfPosts) {
         this.numberOfPosts = numberOfPosts;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
     }
 }

@@ -14,27 +14,26 @@ public class Group {
     @Column(nullable = false)
     private String name;
 
-    @ManyToMany(mappedBy="groups")
-    private Set<Rule> rules = new HashSet<>();
+    @ManyToMany(mappedBy = "groups")
+    private Set<User> bannedUsers = new HashSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group")
     private Set<Post> posts = new HashSet<>();
 
     private boolean deleted;
 
-    public Group(){}
+    private boolean isTypeApproval;
+
+    public Group() {
+    }
+
+    public Group(Long id) {
+        this.id = id;
+    }
 
     public Group(Long id, String name) {
         this.id = id;
         this.name = name;
-    }
-
-    public Set<Rule> getRules() {
-        return rules;
-    }
-
-    public void setRules(Set<Rule> rules) {
-        this.rules = rules;
     }
 
     public Set<Post> getPosts() {
@@ -67,6 +66,22 @@ public class Group {
 
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+
+    public boolean isTypeApproval() {
+        return isTypeApproval;
+    }
+
+    public void setTypeApproval(boolean typeApproval) {
+        isTypeApproval = typeApproval;
+    }
+
+    public Set<User> getBannedUsers() {
+        return bannedUsers;
+    }
+
+    public void setBannedUsers(Set<User> bannedUsers) {
+        this.bannedUsers = bannedUsers;
     }
 }
 

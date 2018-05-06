@@ -1,6 +1,7 @@
 package com.meezotech.updatesbackend.services;
 
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
+import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
 import com.meezotech.updatesbackend.domain.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,5 +17,13 @@ public interface PostService {
     PostDTO createPost(PostDTO postDTO);
 
     void deletePost(Long id);
+
+    void approvePost(Long postId, boolean isApproved);
+
+    PostListDTO getAllPostsForGroupAdmin(long groupId);
+
+    PostListDTO getAnnouncements(Long groupId);
+
+    boolean createAdminPost(String text, Long groupId);
 
 }

@@ -3,7 +3,9 @@ package com.meezotech.updatesbackend.services;
 import com.meezotech.updatesbackend.api.v1.mapper.UserMapper;
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
 import com.meezotech.updatesbackend.api.v1.model.UserListDTO;
+import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.User;
+import com.meezotech.updatesbackend.repositories.GroupRepository;
 import com.meezotech.updatesbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +15,12 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
+    private GroupRepository groupRepository;
     private UserMapper userMapper;
 
-    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, GroupRepository groupRepository, UserMapper userMapper) {
         this.userRepository = userRepository;
+        this.groupRepository = groupRepository;
         this.userMapper = userMapper;
     }
 
@@ -27,6 +31,7 @@ public class UserServiceImpl implements UserService {
         if (userOptional.isPresent()) { // if user already exists, returns the user
             return userMapper.userToUserDto(userOptional.get());
         }
+        user.setJoiningDate(new Date());
         return userMapper.userToUserDto(userRepository.save(user)); // save and return
     }
 
@@ -46,5 +51,35 @@ public class UserServiceImpl implements UserService {
         }
         return new UserListDTO(userDTOS);
     }
+
+    @Override
+    public UserListDTO getAllGroupUsers(Long groupId) {
+        Iterable<User> users = userRepository.findAll();
+        Group group = groupRepository.findOne(groupId);
+        List<UserDTO> userDTOS = new ArrayList<>();
+        for (User user :
+                users) {
+            UserDTO userDTO = userMapper.userToUserDto(user);
+            userDTO.setBanned(user.getGroups().contains(group));
+            userDTOS.add(userDTO);
+        }
+        return new UserListDTO(userDTOS);
+    }
+
+    @Override
+    public void changeBanStatus(Long groupId, Long userId, boolean isBanned) {
+        User user = userRepository.findOne(userId);
+        Group group = groupRepository.findOne(groupId);
+        boolean isAlreadyBanned = user.getGroups().contains(group);
+        if (isBanned && !isAlreadyBanned) {
+            user.getGroups().add(group);
+            group.getBannedUsers().add(user);
+        } else if (!isBanned && isAlreadyBanned) {
+            user.getGroups().remove(group);
+            group.getBannedUsers().remove(user);
+        }
+        userRepository.save(user);
+    }
+
 
 }
