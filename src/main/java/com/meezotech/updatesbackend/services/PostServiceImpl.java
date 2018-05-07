@@ -119,13 +119,10 @@ public class PostServiceImpl implements PostService {
     public boolean createAdminPost(String text, Long groupId) {
         Group group = groupRepository.findOne(groupId);
         Post post = new Post();
+        post.setText(text);
         post.setFromAdmin(true);
         post.setDate(new Date());
         post.setGroup(group);
-        for (Media media :
-                post.getMedia()) {
-            media.setPost(post);
-        }
         postMapper.postToPostDto(postRepository.save(post), -1L);
         return true;
     }
