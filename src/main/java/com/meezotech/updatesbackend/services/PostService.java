@@ -26,4 +26,6 @@ public interface PostService {
 
     boolean createAdminPost(String text, Long groupId);
 
+    PostDTO savePostByDTO(Long postId, PostDTO postDTO);
+
 }

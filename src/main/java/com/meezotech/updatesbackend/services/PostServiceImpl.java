@@ -68,14 +68,14 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO createPost(PostDTO postDTO) {
         Post post = postMapper.postDtoToPost(postDTO);
-        if(groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
+        if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
             throw new IllegalStateException();
         post.setDate(new Date());
-        for (Media media:
-             post.getMedia()) {
+        for (Media media :
+                post.getMedia()) {
             media.setPost(post);
         }
-        if(groupRepository.findOne(post.getGroup().getId()).isTypeApproval())
+        if (groupRepository.findOne(post.getGroup().getId()).isTypeApproval())
             post.setApproved(false);
         else
             post.setApproved(true);
@@ -102,8 +102,8 @@ public class PostServiceImpl implements PostService {
 
     private PostListDTO getPostListDTO(List<Post> posts) {
         PostListDTO postListDTO = new PostListDTO();
-        for (Post post:
-             posts) {
+        for (Post post :
+                posts) {
             postListDTO.getPosts().add(postMapper.postToPostDto(post, -1L));
         }
         return postListDTO;
@@ -122,12 +122,25 @@ public class PostServiceImpl implements PostService {
         post.setFromAdmin(true);
         post.setDate(new Date());
         post.setGroup(group);
-        for (Media media:
+        for (Media media :
                 post.getMedia()) {
             media.setPost(post);
         }
         postMapper.postToPostDto(postRepository.save(post), -1L);
         return true;
+    }
+
+    @Override
+    public PostDTO savePostByDTO(Long postId, PostDTO postDTO) {
+        Post post = postMapper.postDtoToPost(postDTO);
+        if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
+            throw new IllegalStateException();
+        post.setId(postId);
+        if (groupRepository.findOne(post.getGroup().getId()).isTypeApproval())
+            post.setApproved(false);
+        else
+            post.setApproved(true);
+        return postMapper.postToPostDto(postRepository.save(post), -1L);
     }
 
 }

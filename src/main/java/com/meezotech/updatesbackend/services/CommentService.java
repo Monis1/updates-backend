@@ -11,4 +11,7 @@ public interface CommentService {
     CommentDTO createComment(CommentDTO commentDTO);
 
     void deleteComment(Long id);
+
+    CommentDTO saveCommentByDTO(Long commentId, CommentDTO commentDTO);
+
 }

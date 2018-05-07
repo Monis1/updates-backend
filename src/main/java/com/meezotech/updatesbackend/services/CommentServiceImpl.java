@@ -2,6 +2,7 @@ package com.meezotech.updatesbackend.services;
 
 import com.meezotech.updatesbackend.api.v1.mapper.CommentMapper;
 import com.meezotech.updatesbackend.api.v1.model.CommentDTO;
+import com.meezotech.updatesbackend.domain.Comment;
 import com.meezotech.updatesbackend.repositories.CommentRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import org.springframework.data.domain.Page;
@@ -31,11 +32,19 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDTO createComment(CommentDTO commentDTO) {
         commentDTO.setDate(new Date());
-       return commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(commentDTO)));
+        return commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(commentDTO)));
     }
 
     @Override
     public void deleteComment(Long id) {
         commentRepository.delete(id);
     }
+
+    @Override
+    public CommentDTO saveCommentByDTO(Long commentId, CommentDTO commentDTO) {
+        Comment comment = commentMapper.commentDtoToComment(commentDTO);
+        comment.setId(commentId);
+        return commentMapper.commentToCommentDto(commentRepository.save(comment));
+    }
+
 }

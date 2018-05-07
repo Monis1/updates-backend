@@ -2,7 +2,6 @@ package com.meezotech.updatesbackend.controllers.v1;
 
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
 import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
-import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.services.PostService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -73,9 +72,15 @@ public class PostController {
     }
 
     @DeleteMapping
-    @ResponseStatus
+    @ResponseStatus(HttpStatus.OK)
     public void deletePost(@RequestParam("postId") Long postId) {
         postService.deletePost(postId);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public PostDTO updatePost(@RequestParam("postId") Long postId, @RequestBody PostDTO postDTO) {
+        return postService.savePostByDTO(postId, postDTO);
     }
 
 }

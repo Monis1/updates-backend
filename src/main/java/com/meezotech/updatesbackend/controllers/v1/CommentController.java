@@ -21,20 +21,26 @@ public class CommentController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<CommentDTO> getAllCommentsByPostIdPaginated(Pageable pageable, @RequestParam("postId") Long postId){
+    public Page<CommentDTO> getAllCommentsByPostIdPaginated(Pageable pageable, @RequestParam("postId") Long postId) {
         return commentService.getAllCommentsByPostIdPaginated(pageable, postId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public CommentDTO createComment(@RequestBody CommentDTO commentDTO){
+    public CommentDTO createComment(@RequestBody CommentDTO commentDTO) {
         return commentService.createComment(commentDTO);
     }
 
     @DeleteMapping
     @ResponseStatus(HttpStatus.OK)
-    public void deleteComment(@RequestParam("commentId") Long commentId){
+    public void deleteComment(@RequestParam("commentId") Long commentId) {
         commentService.deleteComment(commentId);
+    }
+
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public CommentDTO updateComment(@RequestParam("commentId") Long commentId, @RequestBody CommentDTO commentDTO) {
+        return commentService.saveCommentByDTO(commentId, commentDTO);
     }
 
 }
