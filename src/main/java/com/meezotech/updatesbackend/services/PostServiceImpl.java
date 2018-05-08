@@ -3,12 +3,14 @@ package com.meezotech.updatesbackend.services;
 import com.meezotech.updatesbackend.api.v1.mapper.PostMapper;
 import com.meezotech.updatesbackend.api.v1.model.PostDTO;
 import com.meezotech.updatesbackend.api.v1.model.PostListDTO;
+import com.meezotech.updatesbackend.controllers.UserBlockedException;
 import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
+import com.meezotech.updatesbackend.utilities.Constants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,7 +36,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostDTO> getAllPostsPaginated(Pageable pageable, Long userId) {
-        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
+        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
         Page<Post> postPage = postRepository.findByGroup_DeletedAndApproved(page, false, true);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
@@ -45,7 +47,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId, Long userId) {
-        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
+        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
         Page<Post> postPage = postRepository.findByGroupIdAndGroup_DeletedAndApproved(page, groupId, false, true);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
@@ -56,7 +58,7 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long userId) {
-        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
+        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
         Page<Post> postPage = postRepository.findByUserIdAndGroup_DeletedAndApproved(page, userId, false, true);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
@@ -69,7 +71,7 @@ public class PostServiceImpl implements PostService {
     public PostDTO createPost(PostDTO postDTO) {
         Post post = postMapper.postDtoToPost(postDTO);
         if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
-            throw new IllegalStateException();
+            throw new UserBlockedException(Constants.USER_BLOCKED_MESSAGE);
         post.setDate(new Date());
         for (Media media :
                 post.getMedia()) {
@@ -131,7 +133,7 @@ public class PostServiceImpl implements PostService {
     public PostDTO savePostByDTO(Long postId, PostDTO postDTO) {
         Post post = postMapper.postDtoToPost(postDTO);
         if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
-            throw new IllegalStateException();
+            throw new UserBlockedException(Constants.USER_BLOCKED_MESSAGE);
         post.setId(postId);
         if (groupRepository.findOne(post.getGroup().getId()).isTypeApproval())
             post.setApproved(false);

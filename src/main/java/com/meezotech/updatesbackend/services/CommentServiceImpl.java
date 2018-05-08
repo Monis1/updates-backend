@@ -5,6 +5,7 @@ import com.meezotech.updatesbackend.api.v1.model.CommentDTO;
 import com.meezotech.updatesbackend.domain.Comment;
 import com.meezotech.updatesbackend.repositories.CommentRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
+import com.meezotech.updatesbackend.utilities.Constants;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -25,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Page<CommentDTO> getAllCommentsByPostIdPaginated(Pageable pageable, Long postId) {
-        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, "id");
+        final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
         return commentRepository.findByPostId(page, postId).map(commentMapper::commentToCommentDto);
     }
 
