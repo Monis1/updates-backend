@@ -70,7 +70,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO createPost(PostDTO postDTO) {
         Post post = postMapper.postDtoToPost(postDTO);
-        if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
+        if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) != null)
             throw new UserBlockedException(Constants.USER_BLOCKED_MESSAGE);
         post.setDate(new Date());
         for (Media media :
@@ -132,7 +132,7 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO savePostByDTO(Long postId, PostDTO postDTO) {
         Post post = postMapper.postDtoToPost(postDTO);
-        if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) == null)
+        if (groupRepository.findByIdAndBannedUsers(post.getGroup().getId(), post.getUser()) != null)
             throw new UserBlockedException(Constants.USER_BLOCKED_MESSAGE);
         post.setId(postId);
         if (groupRepository.findOne(post.getGroup().getId()).isTypeApproval())
