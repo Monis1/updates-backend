@@ -4,6 +4,7 @@ import com.meezotech.updatesbackend.api.v1.mapper.GroupMapper;
 import com.meezotech.updatesbackend.api.v1.model.GroupDTO;
 import com.meezotech.updatesbackend.api.v1.model.GroupListDTO;
 import com.meezotech.updatesbackend.domain.Group;
+import com.meezotech.updatesbackend.repositories.GroupAdminRepository;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +17,12 @@ import java.util.Set;
 public class GroupServiceImpl implements GroupService {
 
     private GroupRepository groupRepository;
+    private GroupAdminRepository groupAdminRepository;
     private GroupMapper groupMapper;
 
-    public GroupServiceImpl(GroupRepository groupRepository, GroupMapper groupMapper) {
+    public GroupServiceImpl(GroupRepository groupRepository, GroupAdminRepository groupAdminRepository, GroupMapper groupMapper) {
         this.groupRepository = groupRepository;
+        this.groupAdminRepository = groupAdminRepository;
         this.groupMapper = groupMapper;
     }
 

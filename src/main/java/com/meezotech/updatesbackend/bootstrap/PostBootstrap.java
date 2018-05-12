@@ -95,7 +95,7 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
         for (int i = 0; i < size; i++) {
             Post post = new Post();
             post.setText("Update " + i);
-            post.setApproved(false);
+            post.setApproved(true);
             post.setDate(new Date());
 
             Media media1 = new Media();

@@ -7,6 +7,7 @@ import com.meezotech.updatesbackend.controllers.UserBlockedException;
 import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.notifications.NotificationUtility;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
@@ -27,11 +28,16 @@ public class PostServiceImpl implements PostService {
     private PostRepository postRepository;
     private GroupRepository groupRepository;
     private PostMapper postMapper;
+    private NotificationUtility notificationUtility;
 
-    public PostServiceImpl(PostRepository postRepository, GroupRepository groupRepository, PostMapper postMapper) {
+    public PostServiceImpl(PostRepository postRepository,
+                           GroupRepository groupRepository,
+                           PostMapper postMapper,
+                           NotificationUtility notificationUtility) {
         this.postRepository = postRepository;
         this.groupRepository = groupRepository;
         this.postMapper = postMapper;
+        this.notificationUtility = notificationUtility;
     }
 
     @Override
@@ -81,7 +87,9 @@ public class PostServiceImpl implements PostService {
             post.setApproved(false);
         else
             post.setApproved(true);
-        return postMapper.postToPostDto(postRepository.save(post), -1L);
+        post = postRepository.save(post);
+        notificationUtility.sendPostNotification(post);
+        return postMapper.postToPostDto(post, -1L);
     }
 
     @Override
