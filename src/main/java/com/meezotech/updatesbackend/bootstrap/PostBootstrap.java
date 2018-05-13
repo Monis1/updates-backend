@@ -107,8 +107,8 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
             Media media2 = new Media();
             media2.setMediaType(MediaType.IMAGE);
-            media2.setName("Just Pakistani Things");
-            media2.setUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/27331650_1003078486515614_2119376052328880588_n.jpg?oh=92f82259b50a871aa8f7ef60187e22f1&oe=5AE153AB");
+            media2.setName("razar");
+            media2.setUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/11666178_10155855022160112_8830347095374550013_n.jpg?_nc_cat=0&_nc_eui2=AeFevN5pjgXI4c5RwGvu7KZVEoHT1ne3JQO--0-gbvW35yYS1Dy0zXWh1jadn5eqSX5QQLIy4xlvFZPfzzssDvwY2jJAKBzganFyDm029zSlpw&oh=05179dc3f5fe33b34ee8f09c96b6b349&oe=5B98475C");
             media2.setPost(post);
 
             post.getMedia().add(media1);
