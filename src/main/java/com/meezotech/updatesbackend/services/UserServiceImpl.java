@@ -42,7 +42,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserById(Long id) {
-        return userMapper.userToUserDto(userRepository.findOne(id));
+        UserDTO userDTO = userMapper.userToUserDto(userRepository.findOne(id));
+        long count = userRepository.count();
+        userDTO.setFollowing(count);
+        userDTO.setFollowers(count);
+        return userDTO;
     }
 
     @Override

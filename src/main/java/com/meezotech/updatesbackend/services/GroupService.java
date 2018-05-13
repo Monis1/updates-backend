@@ -10,5 +10,6 @@ public interface GroupService {
     void hideGroup(GroupDTO groupDTO);
     void unHideGroup(GroupDTO groupDTO);
     GroupDTO getGroupById(Long groupId);
+    boolean doesAdminExists(long groupId, String password);
 
 }

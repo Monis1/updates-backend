@@ -4,6 +4,7 @@ import com.meezotech.updatesbackend.api.v1.mapper.GroupMapper;
 import com.meezotech.updatesbackend.api.v1.model.GroupDTO;
 import com.meezotech.updatesbackend.api.v1.model.GroupListDTO;
 import com.meezotech.updatesbackend.domain.Group;
+import com.meezotech.updatesbackend.domain.GroupAdmin;
 import com.meezotech.updatesbackend.repositories.GroupAdminRepository;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,15 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDTO createGroup(GroupDTO groupDTO) {
         Group group = groupMapper.groupDtoToGroup(groupDTO);
-        return groupMapper.groupToGroupDto(groupRepository.save(group));
+        group = groupRepository.save(group);
+        createGroupAdmin(groupDTO, group);
+        return groupMapper.groupToGroupDto(group);
+    }
+
+    private void createGroupAdmin(GroupDTO groupDTO, Group group) {
+        GroupAdmin groupAdmin = new GroupAdmin(group.getId(), groupDTO.getAdminName(),
+                groupDTO.getAdminEmail(), groupDTO.getAdminPassword());
+        groupAdminRepository.save(groupAdmin);
     }
 
     @Override
@@ -61,6 +70,11 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupDTO getGroupById(Long groupId) {
         return  groupMapper.groupToGroupDto(groupRepository.findOne(groupId));
+    }
+
+    @Override
+    public boolean doesAdminExists(long groupId, String password) {
+        return groupAdminRepository.findByGroupIdAndPassword(groupId, password).isPresent();
     }
 
 }

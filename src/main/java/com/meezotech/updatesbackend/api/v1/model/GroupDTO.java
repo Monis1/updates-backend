@@ -6,6 +6,9 @@ public class GroupDTO {
     private String name;
     private boolean isDeleted;
     private boolean isTypeApproval;
+    private String adminName;
+    private String adminEmail;
+    private String adminPassword;
 
     public boolean isTypeApproval() {
         return isTypeApproval;
@@ -45,4 +48,29 @@ public class GroupDTO {
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;
     }
+
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
+    public String getAdminEmail() {
+        return adminEmail;
+    }
+
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
+    }
+
+    public String getAdminPassword() {
+        return adminPassword;
+    }
+
+    public void setAdminPassword(String adminPassword) {
+        this.adminPassword = adminPassword;
+    }
+
 }

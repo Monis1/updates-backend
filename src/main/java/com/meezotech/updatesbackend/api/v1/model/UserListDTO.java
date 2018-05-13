@@ -17,4 +17,5 @@ public class UserListDTO {
     public void setUsers(List<UserDTO> users) {
         this.users = users;
     }
+
 }

@@ -42,4 +42,11 @@ public class GroupController {
         groupService.unHideGroup(groupDTO);
     }
 
+    @GetMapping("/login")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean doesAdminExists(@RequestParam("groupId") long groupId,
+                                   @RequestParam("password") String password){
+        return groupService.doesAdminExists(groupId, password);
+    }
+
 }
