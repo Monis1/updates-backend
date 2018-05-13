@@ -14,8 +14,10 @@ public class Media {
     private MediaType mediaType;
 
     @Column(nullable = false)
+    @Lob
     private String url;
 
+    @Lob
     private String thumbnailUrl;
 
     @Column(nullable = false)
