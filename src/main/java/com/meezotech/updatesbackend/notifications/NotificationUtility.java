@@ -1,10 +1,7 @@
 package com.meezotech.updatesbackend.notifications;
 
-import com.fasterxml.jackson.databind.util.JSONPObject;
-
 import com.meezotech.updatesbackend.domain.Post;
 import com.meezotech.updatesbackend.notifications.payloads.PostNotificationPayload;
-
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -27,8 +24,11 @@ public class NotificationUtility {
         notification.put("title", "Update Notification");
         notification.put("body", getPostNotificationText(post));
 
-        JSONObject data = new JSONObject();
-        data.put("groupId", post.getGroup().getId());
+        PostNotificationPayload postNotificationPayload =
+                new PostNotificationPayload(post.getGroup().getId(), post.getUser().getId(),
+                        post.getGroup().getName(), getPostNotificationText(post));
+
+        JSONObject data = new JSONObject(postNotificationPayload);
 
         body.put("notification", notification);
         body.put("data", data);

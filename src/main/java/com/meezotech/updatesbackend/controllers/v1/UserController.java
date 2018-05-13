@@ -50,4 +50,10 @@ public class UserController {
         userService.changeBanStatus(groupId, userId, isBanned);
     }
 
+    @GetMapping("/post/reaction")
+    @ResponseStatus(HttpStatus.OK)
+    public UserListDTO getAllUsersReactedToThisPost(@RequestParam("postId") Long postId) {
+        return userService.getAllUsersReactedToThisPost(postId);
+    }
+
 }

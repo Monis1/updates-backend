@@ -4,9 +4,9 @@ import com.meezotech.updatesbackend.api.v1.mapper.UserMapper;
 import com.meezotech.updatesbackend.api.v1.mapper.UserMapperImpl;
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
 import com.meezotech.updatesbackend.domain.Gender;
-import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
+import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.repositories.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
@@ -33,11 +33,14 @@ public class UserServiceImplTest {
     @Mock
     private GroupRepository groupRepository;
 
+    @Mock
+    private PostRepository postRepository;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         userMapper = new UserMapperImpl();
-        userService = new UserServiceImpl(userRepository, groupRepository, userMapper);
+        userService = new UserServiceImpl(userRepository, groupRepository, userMapper, postRepository);
     }
 
     @Test

@@ -4,8 +4,11 @@ import com.meezotech.updatesbackend.api.v1.mapper.UserMapper;
 import com.meezotech.updatesbackend.api.v1.model.UserDTO;
 import com.meezotech.updatesbackend.api.v1.model.UserListDTO;
 import com.meezotech.updatesbackend.domain.Group;
+import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.domain.Reaction;
 import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
+import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,11 +20,13 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
     private GroupRepository groupRepository;
     private UserMapper userMapper;
+    private PostRepository postRepository;
 
-    public UserServiceImpl(UserRepository userRepository, GroupRepository groupRepository, UserMapper userMapper) {
+    public UserServiceImpl(UserRepository userRepository, GroupRepository groupRepository, UserMapper userMapper, PostRepository postRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
         this.userMapper = userMapper;
+        this.postRepository = postRepository;
     }
 
     @Override
@@ -79,6 +84,17 @@ public class UserServiceImpl implements UserService {
             group.getBannedUsers().remove(user);
         }
         userRepository.save(user);
+    }
+
+    @Override
+    public UserListDTO getAllUsersReactedToThisPost(Long postId) {
+        List<UserDTO> userDTOS = new ArrayList<>();
+        Post post = postRepository.findOne(postId);
+        for (Reaction reaction :
+                post.getReactions()){
+            userDTOS.add(userMapper.userToUserDto(reaction.getUser()));
+        }
+        return new UserListDTO(userDTOS);
     }
 
 

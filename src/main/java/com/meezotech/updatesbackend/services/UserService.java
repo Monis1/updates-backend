@@ -10,5 +10,6 @@ public interface UserService {
     UserListDTO getAllUsers();
     UserListDTO getAllGroupUsers(Long groupId);
     void changeBanStatus(Long groupId, Long userId, boolean isBanned);
+    UserListDTO getAllUsersReactedToThisPost(Long postId);
 
 }
