@@ -19,6 +19,9 @@ public class GroupAdmin {
     @Column(nullable = false)
     private String password;
 
+    public GroupAdmin() {
+    }
+
     public GroupAdmin(Long groupId, String name, String email, String password) {
         this.groupId = groupId;
         this.name = name;
