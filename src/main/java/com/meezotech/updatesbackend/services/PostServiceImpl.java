@@ -150,4 +150,9 @@ public class PostServiceImpl implements PostService {
         return postMapper.postToPostDto(postRepository.save(post), -1L);
     }
 
+    @Override
+    public PostDTO getPostById(long id, Long userId) {
+        return postMapper.postToPostDto(postRepository.findOne(id), userId);
+    }
+
 }

@@ -3,7 +3,10 @@ package com.meezotech.updatesbackend.services;
 import com.meezotech.updatesbackend.api.v1.mapper.CommentMapper;
 import com.meezotech.updatesbackend.api.v1.model.CommentDTO;
 import com.meezotech.updatesbackend.domain.Comment;
+import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.notifications.NotificationUtility;
 import com.meezotech.updatesbackend.repositories.CommentRepository;
+import com.meezotech.updatesbackend.repositories.PostRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import com.meezotech.updatesbackend.utilities.Constants;
 import org.springframework.data.domain.Page;
@@ -18,10 +21,17 @@ public class CommentServiceImpl implements CommentService {
 
     private CommentRepository commentRepository;
     private CommentMapper commentMapper;
+    private NotificationUtility notificationUtility;
+    private PostRepository postRepository;
 
-    public CommentServiceImpl(CommentRepository commentRepository, CommentMapper commentMapper) {
+    public CommentServiceImpl(CommentRepository commentRepository,
+                              CommentMapper commentMapper,
+                              NotificationUtility notificationUtility,
+                              PostRepository postRepository) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
+        this.notificationUtility = notificationUtility;
+        this.postRepository = postRepository;
     }
 
     @Override
@@ -33,7 +43,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDTO createComment(CommentDTO commentDTO) {
         commentDTO.setDate(new Date());
-        return commentMapper.commentToCommentDto(commentRepository.save(commentMapper.commentDtoToComment(commentDTO)));
+        Comment comment = commentRepository.save(commentMapper.commentDtoToComment(commentDTO));
+        Post post = postRepository.findOne(commentDTO.getPostId());
+        notificationUtility.sendCommentNotification(comment, post.getUser().getId());
+        return commentMapper.commentToCommentDto(comment);
     }
 
     @Override
