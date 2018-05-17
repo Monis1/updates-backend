@@ -3,8 +3,16 @@ package com.meezotech.updatesbackend.notifications.payloads;
 public class PostReactionsNotificationPayload {
 
     private long postId;
+    private long currentUserId;
     private long userId;
     private String text;
+
+    public PostReactionsNotificationPayload(long postId, long currentUserId, long userId, String text) {
+        this.postId = postId;
+        this.currentUserId = currentUserId;
+        this.userId = userId;
+        this.text = text;
+    }
 
     public long getUserId() {
         return userId;
@@ -12,12 +20,6 @@ public class PostReactionsNotificationPayload {
 
     public void setUserId(long userId) {
         this.userId = userId;
-    }
-
-    public PostReactionsNotificationPayload(long postId, long userId, String text) {
-        this.postId = postId;
-        this.userId = userId;
-        this.text = text;
     }
 
     public long getPostId() {
@@ -34,6 +36,14 @@ public class PostReactionsNotificationPayload {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public long getCurrentUserId() {
+        return currentUserId;
+    }
+
+    public void setCurrentUserId(long currentUserId) {
+        this.currentUserId = currentUserId;
     }
 
 }

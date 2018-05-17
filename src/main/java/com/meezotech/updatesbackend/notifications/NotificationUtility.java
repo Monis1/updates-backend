@@ -24,6 +24,7 @@ public class NotificationUtility {
         JSONObject notification = new JSONObject();
         notification.put("title", "Update Notification");
         notification.put("body", getPostNotificationText(post));
+        notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
         PostNotificationPayload postNotificationPayload =
                 new PostNotificationPayload(post.getGroup().getId(), post.getUser().getId(),
                         post.getGroup().getName(), getPostNotificationText(post));
@@ -58,9 +59,10 @@ public class NotificationUtility {
         JSONObject notification = new JSONObject();
         notification.put("title", "Comment Notification");
         notification.put("body", getCommentNotificationText(comment));
+        notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
         PostReactionsNotificationPayload commentNotificationPayload =
                 new PostReactionsNotificationPayload(comment.getPost().getId(),
-                        userId, getCommentNotificationText(comment));
+                        comment.getUser().getId(), userId, getCommentNotificationText(comment));
         JSONObject data = new JSONObject(commentNotificationPayload);
         data.put("type", Constants.COMMENT_NOTIFICTION_TYPE);
         body.put("notification", notification);
@@ -78,9 +80,10 @@ public class NotificationUtility {
         JSONObject notification = new JSONObject();
         notification.put("title", "Like Notification");
         notification.put("body", getLikeNotificationText(reaction));
+        notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
         PostReactionsNotificationPayload commentNotificationPayload =
                 new PostReactionsNotificationPayload(reaction.getPost().getId(),
-                        userId, getLikeNotificationText(reaction));
+                        reaction.getUser().getId(), userId, getLikeNotificationText(reaction));
         JSONObject data = new JSONObject(commentNotificationPayload);
         data.put("type", Constants.REACTION_NOTIFICATION_TYPE);
         body.put("notification", notification);
