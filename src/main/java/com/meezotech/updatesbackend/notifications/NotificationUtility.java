@@ -26,7 +26,7 @@ public class NotificationUtility {
         notification.put("body", getPostNotificationText(post));
         notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
         PostNotificationPayload postNotificationPayload =
-                new PostNotificationPayload(post.getGroup().getId(), post.getUser().getId(),
+                new PostNotificationPayload(post.getId(), post.getGroup().getId(), post.getUser().getId(),
                         post.getGroup().getName(), getPostNotificationText(post));
         JSONObject data = new JSONObject(postNotificationPayload);
         data.put("type", Constants.POST_NOTIFICATION_TYPE);

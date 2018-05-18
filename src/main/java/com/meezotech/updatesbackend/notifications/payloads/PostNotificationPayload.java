@@ -2,12 +2,14 @@ package com.meezotech.updatesbackend.notifications.payloads;
 
 public class PostNotificationPayload {
 
+    private long postId;
     private long groupId;
     private long userId;
     private String groupName;
     private String text;
 
-    public PostNotificationPayload(long groupId, long userId, String groupName, String text) {
+    public PostNotificationPayload(long postId, long groupId, long userId, String groupName, String text) {
+        this.postId = postId;
         this.groupId = groupId;
         this.userId = userId;
         this.groupName = groupName;
@@ -46,4 +48,11 @@ public class PostNotificationPayload {
         this.groupName = groupName;
     }
 
+    public long getPostId() {
+        return postId;
+    }
+
+    public void setPostId(long postId) {
+        this.postId = postId;
+    }
 }
