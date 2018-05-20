@@ -4,9 +4,11 @@ import com.meezotech.updatesbackend.api.v1.mapper.CommentMapper;
 import com.meezotech.updatesbackend.api.v1.model.CommentDTO;
 import com.meezotech.updatesbackend.domain.Comment;
 import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.notifications.NotificationUtility;
 import com.meezotech.updatesbackend.repositories.CommentRepository;
 import com.meezotech.updatesbackend.repositories.PostRepository;
+import com.meezotech.updatesbackend.repositories.UserRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import com.meezotech.updatesbackend.utilities.Constants;
 import org.springframework.data.domain.Page;
@@ -23,15 +25,18 @@ public class CommentServiceImpl implements CommentService {
     private CommentMapper commentMapper;
     private NotificationUtility notificationUtility;
     private PostRepository postRepository;
+    private UserRepository userRepository;
 
     public CommentServiceImpl(CommentRepository commentRepository,
                               CommentMapper commentMapper,
                               NotificationUtility notificationUtility,
-                              PostRepository postRepository) {
+                              PostRepository postRepository,
+                              UserRepository userRepository) {
         this.commentRepository = commentRepository;
         this.commentMapper = commentMapper;
         this.notificationUtility = notificationUtility;
         this.postRepository = postRepository;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -45,7 +50,9 @@ public class CommentServiceImpl implements CommentService {
         commentDTO.setDate(new Date());
         Comment comment = commentRepository.save(commentMapper.commentDtoToComment(commentDTO));
         Post post = postRepository.findOne(commentDTO.getPostId());
-        notificationUtility.sendCommentNotification(comment, post.getUser().getId());
+        User user = userRepository.findOne(post.getUser().getId());
+        if (!user.getId().equals(comment.getUser().getId()))
+            notificationUtility.sendCommentNotification(comment, post.getUser().getId(), user.getNotificationToken());
         return commentMapper.commentToCommentDto(comment);
     }
 

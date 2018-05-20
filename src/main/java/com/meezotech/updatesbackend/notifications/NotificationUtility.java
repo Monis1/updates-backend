@@ -19,7 +19,7 @@ public class NotificationUtility {
     @Autowired
     PushNotificationService pushNotificationService;
 
-    public void sendPostNotification(Post post) {
+    public void sendPostNotification(Post post, String[] tokens) {
         JSONObject body = new JSONObject();
         JSONObject notification = new JSONObject();
         notification.put("title", "Update Notification");
@@ -32,6 +32,7 @@ public class NotificationUtility {
         data.put("type", Constants.POST_NOTIFICATION_TYPE);
         body.put("notification", notification);
         body.put("data", data);
+        body.put("registration_ids", tokens); // by default all subscribed to topic test
         sendNotification(body);
     }
 
@@ -41,7 +42,6 @@ public class NotificationUtility {
     }
 
     private void sendNotification(JSONObject notificationBody){
-        notificationBody.put("to", "/topics/test"); // by default all subscribed to topic test
         notificationBody.put("priority", "high"); // by default all notifications priority is high
         HttpEntity<String> request = new HttpEntity<>(notificationBody.toString());
         CompletableFuture<String> pushNotification = pushNotificationService.send(request);
@@ -54,7 +54,7 @@ public class NotificationUtility {
         }
     }
 
-    public void sendCommentNotification(Comment comment, long userId) {
+    public void sendCommentNotification(Comment comment, long userId, String token) {
         JSONObject body = new JSONObject();
         JSONObject notification = new JSONObject();
         notification.put("title", "Comment Notification");
@@ -67,6 +67,7 @@ public class NotificationUtility {
         data.put("type", Constants.COMMENT_NOTIFICTION_TYPE);
         body.put("notification", notification);
         body.put("data", data);
+        body.put("to", token);
         sendNotification(body);
     }
 
@@ -75,7 +76,7 @@ public class NotificationUtility {
                 ,comment.getUser().getLastName());
     }
 
-    public void sendReactionNotification(Reaction reaction, long userId) {
+    public void sendReactionNotification(Reaction reaction, long userId, String token) {
         JSONObject body = new JSONObject();
         JSONObject notification = new JSONObject();
         notification.put("title", "Like Notification");
@@ -88,6 +89,7 @@ public class NotificationUtility {
         data.put("type", Constants.REACTION_NOTIFICATION_TYPE);
         body.put("notification", notification);
         body.put("data", data);
+        body.put("to", token); // by default all subscribed to topic test
         sendNotification(body);
     }
 

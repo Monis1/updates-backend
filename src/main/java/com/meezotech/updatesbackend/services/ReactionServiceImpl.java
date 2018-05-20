@@ -38,7 +38,10 @@ public class ReactionServiceImpl implements ReactionService {
         Post post = postRepository.findOne(reactionDTO.getPostId());
         User user = userRepository.findOne(reactionDTO.getUserId());
         reaction.setUser(user);
-        notificationUtility.sendReactionNotification(reaction, post.getUser().getId());
+        User user1 = userRepository.findOne(post.getUser().getId());
+        if (!reaction.getUser().getId().equals(user1.getId()))
+            notificationUtility.sendReactionNotification(reaction,
+                    post.getUser().getId(), user1.getNotificationToken());
         return reactionMapper.reactionToReactionDto(reaction);
     }
 

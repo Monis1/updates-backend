@@ -20,14 +20,14 @@ public class UserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO createUser(@RequestBody UserDTO userDTO) {
-        return userService.createUser(userDTO);
+    public UserDTO createUser(@RequestBody UserDTO userDTO, @RequestParam("token") String token) {
+        return userService.createUser(userDTO, token);
     }
 
-    @GetMapping({"/{id}"})
+    @GetMapping("/single")
     @ResponseStatus(HttpStatus.OK)
-    public UserDTO getUserById(@PathVariable Long id) {
-        return userService.getUserById(id);
+    public UserDTO getUserById(@RequestParam("userId") long userId) {
+        return userService.getUserById(userId);
     }
 
     @GetMapping("/admin")
@@ -54,6 +54,12 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     public UserListDTO getAllUsersReactedToThisPost(@RequestParam("postId") Long postId) {
         return userService.getAllUsersReactedToThisPost(postId);
+    }
+
+    @DeleteMapping("logout")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean logout(@RequestParam("userId") Long userId) {
+        return userService.logout(userId);
     }
 
 }
