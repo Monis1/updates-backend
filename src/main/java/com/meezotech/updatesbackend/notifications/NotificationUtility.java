@@ -25,6 +25,7 @@ public class NotificationUtility {
         notification.put("title", "Update Notification");
         notification.put("body", getPostNotificationText(post));
         notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
+        notification.put("android_channel_id", "default");
         PostNotificationPayload postNotificationPayload =
                 new PostNotificationPayload(post.getId(), post.getGroup().getId(), post.getUser().getId(),
                         post.getGroup().getName(), getPostNotificationText(post));
@@ -60,6 +61,7 @@ public class NotificationUtility {
         notification.put("title", "Comment Notification");
         notification.put("body", getCommentNotificationText(comment));
         notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
+        notification.put("android_channel_id", "default");
         PostReactionsNotificationPayload commentNotificationPayload =
                 new PostReactionsNotificationPayload(comment.getPost().getId(),
                         comment.getUser().getId(), userId, getCommentNotificationText(comment));
@@ -82,6 +84,7 @@ public class NotificationUtility {
         notification.put("title", "Like Notification");
         notification.put("body", getLikeNotificationText(reaction));
         notification.put("click_action", "com.abdulahad.halatupdatesapp_TARGET_NOTIFICATION"); // default filter for mobile
+        notification.put("android_channel_id", "default");
         PostReactionsNotificationPayload commentNotificationPayload =
                 new PostReactionsNotificationPayload(reaction.getPost().getId(),
                         reaction.getUser().getId(), userId, getLikeNotificationText(reaction));
