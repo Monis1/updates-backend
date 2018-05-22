@@ -30,7 +30,7 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
-    @GetMapping("/admin")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public UserListDTO getAllUsers() {
         return userService.getAllUsers();
