@@ -60,7 +60,7 @@ public class UserServiceImplTest {
         when(userRepository.save(any(User.class))).thenReturn(userMapper.userDtoToUser(userDTO));
 
         // check if the returned object is not null
-        UserDTO userDtoReturned = userService.createUser(userDTO);
+        UserDTO userDtoReturned = userService.createUser(userDTO, "");
         assertNotNull("Null User Returned", userDtoReturned);
     }
 

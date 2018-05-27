@@ -30,13 +30,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO createUser(UserDTO userDTO) {
+    public UserDTO createUser(UserDTO userDTO, String token) {
         User user = userMapper.userDtoToUser(userDTO);
         Optional<User> userOptional = userRepository.findByEmail(user.getEmail());
         if (userOptional.isPresent()) { // if user already exists, returns the user
-            return userMapper.userToUserDto(userOptional.get());
+            user.setId(userOptional.get().getId());
+        } else {
+            user.setJoiningDate(new Date());
         }
-        user.setJoiningDate(new Date());
+        user.setNotificationToken(token);
         return userMapper.userToUserDto(userRepository.save(user)); // save and return
     }
 
@@ -95,10 +97,18 @@ public class UserServiceImpl implements UserService {
         List<UserDTO> userDTOS = new ArrayList<>();
         Post post = postRepository.findOne(postId);
         for (Reaction reaction :
-                post.getReactions()){
+                post.getReactions()) {
             userDTOS.add(userMapper.userToUserDto(reaction.getUser()));
         }
         return new UserListDTO(userDTOS);
+    }
+
+    @Override
+    public boolean logout(Long userId) {
+        User user = userRepository.findOne(userId);
+        user.setNotificationToken("");
+        userRepository.save(user);
+        return true;
     }
 
 

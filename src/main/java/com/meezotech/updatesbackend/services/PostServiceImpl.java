@@ -7,9 +7,11 @@ import com.meezotech.updatesbackend.controllers.UserBlockedException;
 import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.notifications.NotificationUtility;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import com.meezotech.updatesbackend.repositories.PostRepository;
+import com.meezotech.updatesbackend.repositories.UserRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import com.meezotech.updatesbackend.utilities.Constants;
 import org.springframework.data.domain.Page;
@@ -27,15 +29,18 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
     private GroupRepository groupRepository;
+    private UserRepository userRepository;
     private PostMapper postMapper;
     private NotificationUtility notificationUtility;
 
     public PostServiceImpl(PostRepository postRepository,
                            GroupRepository groupRepository,
+                           UserRepository userRepository,
                            PostMapper postMapper,
                            NotificationUtility notificationUtility) {
         this.postRepository = postRepository;
         this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
         this.postMapper = postMapper;
         this.notificationUtility = notificationUtility;
     }
@@ -88,7 +93,11 @@ public class PostServiceImpl implements PostService {
         else
             post.setApproved(true);
         post = postRepository.save(post);
-        notificationUtility.sendPostNotification(post);
+        List<User> users = userRepository.findAllByIdIsNot(post.getUser().getId());
+        String[] tokens = new String[users.size()];
+        for (int i = 0; i < users.size(); i++)
+            tokens[i] = users.get(i).getNotificationToken();
+        notificationUtility.sendPostNotification(post, tokens);
         return postMapper.postToPostDto(post, -1L);
     }
 
@@ -148,6 +157,11 @@ public class PostServiceImpl implements PostService {
         else
             post.setApproved(true);
         return postMapper.postToPostDto(postRepository.save(post), -1L);
+    }
+
+    @Override
+    public PostDTO getPostById(long id, Long userId) {
+        return postMapper.postToPostDto(postRepository.findOne(id), userId);
     }
 
 }

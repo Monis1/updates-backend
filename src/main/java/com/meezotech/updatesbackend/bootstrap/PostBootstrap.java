@@ -73,13 +73,12 @@ public class PostBootstrap implements ApplicationListener<ContextRefreshedEvent>
 
         Group group1 = new Group();
         group1.setName("Updates1");
-        group1.setDeleted(true);
         groupRepository.save(group1);
 
         User user = new User();
         user.setFirstName("Moid");
         user.setLastName("khan");
-        user.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/22141210_1527317537304126_6355389030864021810_n.jpg?oh=56c4f6a71f3a08748ca30eda46605c47&oe=5ADE1571");
+        user.setProfilePictureUrl("https://scontent.fkhi2-1.fna.fbcdn.net/v/t1.0-9/22141210_1527317537304126_6355389030864021810_n.jpg?_nc_cat=0&oh=673a5a3f7f95940b3293b20c8f1f454c&oe=5B7C4971");
         user.setEmail("abdulmoeedkhan92@gmail.com");
         user.setGender(Gender.MALE);
         userRepository.save(user);

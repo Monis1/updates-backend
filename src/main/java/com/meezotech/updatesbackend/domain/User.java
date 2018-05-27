@@ -55,6 +55,8 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<Comment> comments = new HashSet<>();
 
+    private String notificationToken;
+
 
     public User() {
     }
@@ -177,4 +179,13 @@ public class User {
     public void setJoiningDate(Date joiningDate) {
         this.joiningDate = joiningDate;
     }
+
+    public String getNotificationToken() {
+        return notificationToken;
+    }
+
+    public void setNotificationToken(String notificationToken) {
+        this.notificationToken = notificationToken;
+    }
+    
 }
