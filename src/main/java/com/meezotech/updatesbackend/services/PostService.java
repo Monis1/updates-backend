@@ -30,4 +30,5 @@ public interface PostService {
 
     PostDTO getPostById(long id, Long userId);
 
+    void reportPost(Long postId, Long userId);
 }
