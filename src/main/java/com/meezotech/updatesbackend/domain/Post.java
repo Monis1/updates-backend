@@ -37,6 +37,9 @@ public class Post {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
     private Set<Comment> comments = new HashSet<>();
 
+    @ManyToMany(mappedBy = "reportedPosts")
+    private Set<User> usersWhoReported = new HashSet<>();
+
     public void setId(Long value) {
         this.id = value;
     }
@@ -115,6 +118,14 @@ public class Post {
 
     public void setFromAdmin(boolean fromAdmin) {
         this.fromAdmin = fromAdmin;
+    }
+
+    public Set<User> getUsersWhoReported() {
+        return usersWhoReported;
+    }
+
+    public void setUsersWhoReported(Set<User> usersWhoReported) {
+        this.usersWhoReported = usersWhoReported;
     }
 }
 

@@ -7,9 +7,11 @@ import com.meezotech.updatesbackend.controllers.UserBlockedException;
 import com.meezotech.updatesbackend.domain.Group;
 import com.meezotech.updatesbackend.domain.Media;
 import com.meezotech.updatesbackend.domain.Post;
+import com.meezotech.updatesbackend.domain.User;
 import com.meezotech.updatesbackend.notifications.NotificationUtility;
 import com.meezotech.updatesbackend.repositories.GroupRepository;
 import com.meezotech.updatesbackend.repositories.PostRepository;
+import com.meezotech.updatesbackend.repositories.UserRepository;
 import com.meezotech.updatesbackend.utilities.ApiUtility;
 import com.meezotech.updatesbackend.utilities.Constants;
 import org.springframework.data.domain.Page;
@@ -27,15 +29,17 @@ public class PostServiceImpl implements PostService {
 
     private PostRepository postRepository;
     private GroupRepository groupRepository;
+    private UserRepository userRepository;
     private PostMapper postMapper;
     private NotificationUtility notificationUtility;
 
     public PostServiceImpl(PostRepository postRepository,
                            GroupRepository groupRepository,
-                           PostMapper postMapper,
+                           UserRepository userRepository, PostMapper postMapper,
                            NotificationUtility notificationUtility) {
         this.postRepository = postRepository;
         this.groupRepository = groupRepository;
+        this.userRepository = userRepository;
         this.postMapper = postMapper;
         this.notificationUtility = notificationUtility;
     }
@@ -43,10 +47,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getAllPostsPaginated(Pageable pageable, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
+        User user = userRepository.findOne(userId);
         Page<Post> postPage = postRepository.findByGroup_DeletedAndApproved(page, false, true);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
-            postDTOS.add(postMapper.postToPostDto(post, userId));
+            if (!user.getReportedPosts().contains(post))
+                postDTOS.add(postMapper.postToPostDto(post, userId));
         }
         return new PageImpl<>(postDTOS);
     }
@@ -54,10 +60,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getAllPostsByGroupIdPaginated(Pageable pageable, Long groupId, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
+        User user = userRepository.findOne(userId);
         Page<Post> postPage = postRepository.findByGroupIdAndGroup_DeletedAndApproved(page, groupId, false, true);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
-            postDTOS.add(postMapper.postToPostDto(post, userId));
+            if (!user.getReportedPosts().contains(post))
+                postDTOS.add(postMapper.postToPostDto(post, userId));
         }
         return new PageImpl<>(postDTOS);
     }
@@ -65,10 +73,12 @@ public class PostServiceImpl implements PostService {
     @Override
     public Page<PostDTO> getAllPostsByUserIdPaginated(Pageable pageable, Long userId) {
         final PageRequest page = ApiUtility.getPageRequestWithSorting(pageable, Constants.SORT_PROPERTY_ID);
+        User user = userRepository.findOne(userId);
         Page<Post> postPage = postRepository.findByUserIdAndGroup_DeletedAndApproved(page, userId, false, true);
         List<PostDTO> postDTOS = new ArrayList<>();
         for (Post post : postPage) {
-            postDTOS.add(postMapper.postToPostDto(post, userId));
+            if (!user.getReportedPosts().contains(post))
+                postDTOS.add(postMapper.postToPostDto(post, userId));
         }
         return new PageImpl<>(postDTOS);
     }
@@ -148,6 +158,16 @@ public class PostServiceImpl implements PostService {
         else
             post.setApproved(true);
         return postMapper.postToPostDto(postRepository.save(post), -1L);
+    }
+
+    @Override
+    public void reportPost(Long postId, Long userId) {
+        Post post = postRepository.findOne(postId);
+        User user = userRepository.findOne(userId);
+        post.getUsersWhoReported().add(user);
+        user.getReportedPosts().add(post);
+        userRepository.save(user);
+        postRepository.save(post);
     }
 
 }

@@ -46,6 +46,12 @@ public class User {
             inverseJoinColumns={ @JoinColumn(name="group_id") })
     private Set<Group> groups = new java.util.HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name="Reported_Posts",
+            joinColumns={ @JoinColumn(name="user_id") },
+            inverseJoinColumns={ @JoinColumn(name="post_id") })
+    private Set<Post> reportedPosts = new java.util.HashSet<>();
+
     @ManyToMany(mappedBy="followingUsers")
     private Set<User> followedUsers = new HashSet<>();
 
@@ -176,5 +182,13 @@ public class User {
 
     public void setJoiningDate(Date joiningDate) {
         this.joiningDate = joiningDate;
+    }
+
+    public Set<Post> getReportedPosts() {
+        return reportedPosts;
+    }
+
+    public void setReportedPosts(Set<Post> reportedPosts) {
+        this.reportedPosts = reportedPosts;
     }
 }

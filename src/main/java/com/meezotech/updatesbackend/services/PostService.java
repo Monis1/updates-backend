@@ -28,4 +28,6 @@ public interface PostService {
 
     PostDTO savePostByDTO(Long postId, PostDTO postDTO);
 
+    void reportPost(Long postId, Long userId);
+
 }
