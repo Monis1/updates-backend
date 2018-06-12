@@ -35,7 +35,8 @@ public class PostServiceImpl implements PostService {
 
     public PostServiceImpl(PostRepository postRepository,
                            GroupRepository groupRepository,
-                           UserRepository userRepository, PostMapper postMapper,
+                           UserRepository userRepository,
+                           PostMapper postMapper,
                            NotificationUtility notificationUtility) {
         this.postRepository = postRepository;
         this.groupRepository = groupRepository;
@@ -98,7 +99,11 @@ public class PostServiceImpl implements PostService {
         else
             post.setApproved(true);
         post = postRepository.save(post);
-        notificationUtility.sendPostNotification(post);
+        List<User> users = userRepository.findAllByIdIsNot(post.getUser().getId());
+        String[] tokens = new String[users.size()];
+        for (int i = 0; i < users.size(); i++)
+            tokens[i] = users.get(i).getNotificationToken();
+        notificationUtility.sendPostNotification(post, tokens);
         return postMapper.postToPostDto(post, -1L);
     }
 
@@ -158,6 +163,11 @@ public class PostServiceImpl implements PostService {
         else
             post.setApproved(true);
         return postMapper.postToPostDto(postRepository.save(post), -1L);
+    }
+
+    @Override
+    public PostDTO getPostById(long id, Long userId) {
+        return postMapper.postToPostDto(postRepository.findOne(id), userId);
     }
 
     @Override

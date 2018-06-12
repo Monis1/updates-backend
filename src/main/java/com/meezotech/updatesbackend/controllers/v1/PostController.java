@@ -20,6 +20,13 @@ public class PostController {
         this.postService = postService;
     }
 
+    @GetMapping("/single")
+    @ResponseStatus(HttpStatus.OK)
+    public PostDTO getPostById(@RequestParam("postId") long postId,
+                               @RequestParam("userId") long userId){
+        return postService.getPostById(postId, userId);
+    }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<PostDTO> getAllPostsPaginated(Pageable pageable, @RequestParam("userId") Long userId) {
